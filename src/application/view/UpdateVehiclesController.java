@@ -3,7 +3,6 @@ package application.view;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -20,6 +19,8 @@ import application.DAO.VehicleCategoryDAOImpl;
 import application.DAO.VehicleDAOImpl;
 import application.DAO.VehicleModelDAOImpl;
 import application.model.Vehicle;
+import application.model.VehicleCategory;
+import application.model.VehicleModel;
 import application.util.Components;
 import application.util.Dialogs;
 import application.util.ReportsUtil;
@@ -109,6 +110,8 @@ public class UpdateVehiclesController implements Initializable {
 	private static UpdateVehiclesController instance = new UpdateVehiclesController(); 
 	
 	private ObservableList<Vehicle> list = FXCollections.observableArrayList();
+	private ObservableList<VehicleModel> listModel = FXCollections.observableArrayList();
+	private ObservableList<VehicleCategory> listType = FXCollections.observableArrayList();
 	private FileChooser fileChooser;
 	private File filePath;
 	
@@ -126,17 +129,13 @@ public class UpdateVehiclesController implements Initializable {
 			tblVehicle.setOnMouseReleased(e->{
 				if(Bindings.isNotEmpty(tblVehicle.getItems()).get()) {
 					Vehicle v = tblVehicle.getFocusModel().getFocusedItem();
-					v.setVehicleID(VehicleDAOImpl.getInstance()
-											.getAll()
-											.stream()
+					v.setVehicleID(list.stream()
 											.filter(i->i.getMvNumber().equals(v.getMvNumber()))
 											.findFirst()
 											.get()
 											.getVehicleID());	
 					
-					v.setImage(VehicleDAOImpl.getInstance()
-							.getAll()
-							.parallelStream()
+					v.setImage(list.parallelStream()
 							.filter(i->i.getMvNumber().equals(v.getMvNumber()))
 							.findFirst()
 							.get()
@@ -185,9 +184,7 @@ public class UpdateVehiclesController implements Initializable {
 					Components.showError(lblError, "Error: Please fill up required fields");
 				else {
 					if(filePath!=null) {
-						int vehicleID = VehicleDAOImpl.getInstance()
-												.getAll()
-												.stream()
+						int vehicleID = list.stream()
 												.filter(i->i.getPlateNumber().equals(txtPlateNumber.getText()))
 												.findFirst()
 												.get()
@@ -195,17 +192,13 @@ public class UpdateVehiclesController implements Initializable {
 						
 						Vehicle v = new Vehicle(vehicleID,txtPlateNumber.getText(), txtMVNumber.getText(), txtEngineNumber.getText(), txtChassisNumber.getText(), cbModel.getValue(), cbType.getValue(), txtEncumberedTo.getText(), Double.parseDouble(txtAmount.getText()), dpMaturity.getValue(), cbStatus.getValue(), imgVehicle.getImage());
 						
-						int modelID = VehicleModelDAOImpl.getInstance()
-												.getAll()
-												.stream()
+						int modelID = listModel.stream()
 												.filter(i->i.getDescription().equals(v.getModel()))
 												.findFirst()
 												.get()
 												.getModelID();
 						
-						int typeID = VehicleCategoryDAOImpl.getInstance()
-												.getAll()
-												.stream()
+						int typeID = listType.stream()
 												.filter(i->i.getDescription().equals(v.getType()))
 												.findFirst()
 												.get()
@@ -261,7 +254,7 @@ public class UpdateVehiclesController implements Initializable {
 			
 			btnReport.setOnAction(e->{
 				try {
-					File file = Paths.get("lib/reports/VehicleInfo.jrxml").toRealPath().toFile();
+					File file = new File("Vehicle.jrxml");
 					ReportsUtil.getInstance().showReport(file);
 				} catch(Exception err) {
 					err.printStackTrace();
@@ -276,12 +269,17 @@ public class UpdateVehiclesController implements Initializable {
 	
 	public void initList() {
 		try {
+			list.clear();
+			listModel.clear();
+			listType.clear();
+			
 			cbModel.getItems().clear();
 			VehicleModelDAOImpl.getInstance()
 			   .getAll()
 			   .stream()
 			   .forEach(e->{
 				   cbModel.getItems().add(e.getDescription());
+				   listModel.add(e);
 			   });
 
 			cbType.getItems().clear();
@@ -290,9 +288,9 @@ public class UpdateVehiclesController implements Initializable {
 				.stream()
 				.forEach(e->{
 					cbType.getItems().add(e.getDescription());
+					listType.add(e);
 				});
 
-			list.clear();
 			
 //			 Sorts the data from the database
 			List<Vehicle> sortedList = VehicleDAOImpl.getInstance()

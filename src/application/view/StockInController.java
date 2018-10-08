@@ -104,7 +104,7 @@ public class StockInController implements Initializable {
 		try {
 			Components.hideError(lblError);
 			initTable();
-			
+			cost = 0;
 			txtStockInID.setEditable(false);
 			txtStockInID.setText(StockInDAOImpl.getInstance().getAll().size()+1+"");
 			txtCost.setEditable(false);

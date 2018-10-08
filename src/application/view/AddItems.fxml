@@ -41,7 +41,8 @@
       <Pane layoutX="565.0" layoutY="50.0" prefHeight="524.0" prefWidth="726.0" style="-fx-background-radius: 10px;" styleClass="side-bar2">
          <children>
             <JFXButton fx:id="btnRefresh" layoutX="11.0" layoutY="34.0" text="Refresh" />
-            <JFXTextField fx:id="txtSearch" labelFloat="true" layoutX="587.0" layoutY="28.0" prefHeight="25.0" prefWidth="125.0" promptText="Item name" />
+            <JFXComboBox fx:id="cbSearch" labelFloat="true" layoutX="432.0" layoutY="28.0" prefHeight="25.0" prefWidth="135.0" promptText="Search By" />
+            <JFXTextField fx:id="txtSearch" labelFloat="true" layoutX="587.0" layoutY="28.0" prefHeight="25.0" prefWidth="125.0" promptText="Enter Keyword" />
             <TableView fx:id="tblItem" layoutX="11.0" layoutY="70.0" prefHeight="365.0" prefWidth="705.0">
                <columns>
                   <TableColumn fx:id="colItemID" prefWidth="57.0" text="Item ID" visible="false" />

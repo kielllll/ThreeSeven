@@ -2,7 +2,6 @@ package application.view;
 
 import java.io.File;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -61,6 +60,8 @@ public class AddItemsController implements Initializable {
 	@FXML
 	private JFXButton btnRefresh;
 	@FXML
+	private JFXComboBox<String> cbSearch;
+	@FXML
 	private JFXTextField txtSearch;
 	@FXML
 	private TableView<Item> tblItem;
@@ -94,9 +95,11 @@ public class AddItemsController implements Initializable {
 			txtItemID.setText((ItemDAOImpl.getInstance().getAll().size()+1)+"");
 			Components.hideError(lblError);
 			
+			cbSearch.getItems().addAll("Name","Supplier","Description","Unit","Status");
+			cbSearch.setValue("Name");
+			
 			cbStatus.setEditable(true);
-			cbStatus.getItems().add("in stock");
-			cbStatus.getItems().add("out of stock");
+			cbStatus.getItems().addAll("in stock", "out of stock");
 			cbStatus.setValue("out of stock");
 			
 			initTable();
@@ -150,7 +153,7 @@ public class AddItemsController implements Initializable {
 			
 			btnReport.setOnAction(e->{
 				try {
-					File file = Paths.get("lib/reports/Inventory.jrxml").toRealPath().toFile();
+					File file = new File("Inventory.jrxml");
 //					File file = new File("src/Inventory.jrxml");
 //					File file = new File(Main.class.getResource("../Inventory.jrxml").toString());
 					ReportsUtil.getInstance().showReport(file);
@@ -228,10 +231,30 @@ public class AddItemsController implements Initializable {
 
 	                // Compare first name and last name of every person with filter text.
 	                String lowerCaseFilter = newValue.toLowerCase();
-
-	                if ((i.getName().toLowerCase()).contains(lowerCaseFilter)) {
-	                    return true; // Filter matches first name.
-	                } 
+	                
+	                switch(cbSearch.getValue()) {
+	                case "Name": if ((i.getName().toLowerCase()).contains(lowerCaseFilter)) {
+				                    return true; // Filter matches first name.
+				                } 
+	                			break;
+	                case "Supplier": if ((i.getSupplier().toLowerCase()).contains(lowerCaseFilter)) {
+				                    return true; // Filter matches first name.
+				                } 
+			        			break;
+	                case "Description": if ((i.getDescription().toLowerCase()).contains(lowerCaseFilter)) {
+				                    return true; // Filter matches first name.
+				                } 
+			        			break;
+	                case "Unit": if ((i.getUnit().toLowerCase()).contains(lowerCaseFilter)) {
+				                    return true; // Filter matches first name.
+				                } 
+			        			break;
+	                case "Status": if ((i.getStatus().toLowerCase()).contains(lowerCaseFilter)) {
+				                    return true; // Filter matches first name.
+				                } 
+			        			break;
+	                }
+	                
 	                return false; // Does not match.
 	            });
 	            

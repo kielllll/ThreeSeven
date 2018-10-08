@@ -3,7 +3,6 @@ package application.view;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -20,6 +19,8 @@ import application.DAO.VehicleCategoryDAOImpl;
 import application.DAO.VehicleDAOImpl;
 import application.DAO.VehicleModelDAOImpl;
 import application.model.Vehicle;
+import application.model.VehicleCategory;
+import application.model.VehicleModel;
 import application.util.Components;
 import application.util.Dialogs;
 import application.util.ReportsUtil;
@@ -106,7 +107,9 @@ public class AddVehiclesController implements Initializable {
 	private JFXButton btnReport;
     
 	private static AddVehiclesController instance = new AddVehiclesController(); 
-	
+
+	private ObservableList<VehicleModel> listModel = FXCollections.observableArrayList();
+	private ObservableList<VehicleCategory> listType = FXCollections.observableArrayList();
 	private ObservableList<Vehicle> list = FXCollections.observableArrayList();
 	private FileChooser fileChooser;
 	private File filePath;
@@ -175,7 +178,7 @@ public class AddVehiclesController implements Initializable {
 			
 			btnReport.setOnAction(e->{
 				try {
-					File file = Paths.get("lib/reports/VehicleInfo.jrxml").toRealPath().toFile();
+					File file = new File("Vehicle.jrxml");
 					ReportsUtil.getInstance().showReport(file);
 				} catch(Exception err) {
 					err.printStackTrace();
@@ -194,6 +197,7 @@ public class AddVehiclesController implements Initializable {
 			   .stream()
 			   .forEach(e->{
 				   cbModel.getItems().add(e.getDescription());
+				   listModel.add(e);
 			   });
 
 			cbType.getItems().clear();
@@ -202,6 +206,7 @@ public class AddVehiclesController implements Initializable {
 				.stream()
 				.forEach(e->{
 					cbType.getItems().add(e.getDescription());
+					listType.add(e);
 				});
 
 			list.clear();
