@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="598.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutX="11.0" layoutY="50.0" prefHeight="529.0" prefWidth="1279.0" style="-fx-background-radius: 10px;" styleClass="side-bar2">
+         <children>
+            <JFXComboBox fx:id="cbSearch" labelFloat="true" layoutX="17.0" layoutY="51.0" prefHeight="25.0" prefWidth="133.0" promptText="Search by" />
+            <JFXTextField fx:id="txtSearch" labelFloat="true" layoutX="173.0" layoutY="51.0" prefHeight="25.0" prefWidth="172.0" promptText="Enter Keyword" />
+            <JFXTextField fx:id="txtTotal" labelFloat="true" layoutX="993.0" layoutY="51.0" prefHeight="25.0" prefWidth="172.0" promptText="Total Amount" visible="false" />
+            <JFXButton fx:id="btnView" layoutX="1182.0" layoutY="51.0" text="View Details" visible="false" />
+            <TableView fx:id="tblExpenses" layoutX="17.0" layoutY="85.0" prefHeight="413.0" prefWidth="1246.0">
+               <columns>
+                  <TableColumn fx:id="colID" text="Stock In ID" />
+                  <TableColumn fx:id="colDate" prefWidth="116.0" text="Transaction Date" />
+                  <TableColumn fx:id="colSupplier" prefWidth="543.9999694824219" text="Supplier" />
+                  <TableColumn fx:id="colInvoice" prefWidth="181.00003051757812" text="Invoice Number" />
+                  <TableColumn fx:id="colInvoiceDate" prefWidth="173.0" text="Invoice Date" />
+                  <TableColumn fx:id="colAmount" prefWidth="150.0" text="Amount" />
+               </columns>
+            </TableView>
+            <Label fx:id="lblError" layoutX="17.0" layoutY="507.0" text="Error" textFill="RED" />
+         </children>
+      </Pane>
+      <Pane layoutX="26.0" layoutY="19.0" prefHeight="62.0" prefWidth="365.0" style="-fx-background-color: #ec9e14; -fx-background-radius: 10;" styleClass="side-bar2">
+         <children>
+            <Label layoutX="14.0" layoutY="15.0" prefHeight="33.0" prefWidth="340.0" text="Daily Stock In Expenses">
+               <font>
+                  <Font name="Arial Bold" size="29.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

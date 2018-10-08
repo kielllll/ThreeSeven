@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="650.0" prefWidth="230.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label accessibleText="Inventory" prefHeight="34.21" prefWidth="230.0" style="-fx-background-color: #EC9E14;" text="Inventory" textFill="#f8eded">
+         <font>
+            <Font name="Arial Bold" size="19.0" />
+         </font>
+      </Label>
+      <JFXButton accessibleText="items" alignment="BOTTOM_LEFT" prefHeight="34.21" prefWidth="230.0" text="Items" />
+      <JFXButton accessibleText="stocks" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="45.0" prefHeight="34.21" prefWidth="230.0" text="Inventory Transactions" />
+      <JFXButton accessibleText="suppliers" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="80.0" prefHeight="34.21" prefWidth="230.0" text="Suppliers" />
+      <JFXButton accessibleText="Purchase Orders" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="115.0" prefHeight="34.21" prefWidth="230.0" text="Purchase Orders" />
+      <JFXButton accessibleText="reports" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="150.0" prefHeight="34.21" prefWidth="230.0" text="Stock In Reports" />
+      <Label accessibleText="Vehicle Information" layoutX="10.0" layoutY="10.0" prefHeight="34.21" prefWidth="230.0" style="-fx-background-color: #Ec9e14;" text="Vehicle Information" textFill="#f8eded">
+         <font>
+            <Font name="Arial Bold" size="19.0" />
+         </font>
+      </Label>
+      <JFXButton accessibleText="vehicles" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="185.0" prefHeight="34.21" prefWidth="230.0" text="Vehicles" />
+      <JFXButton accessibleText="Preventive Maintenance" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="255.0" prefHeight="34.21" prefWidth="230.0" text="Preventive Maintenance" />
+      <Label accessibleText="Accounts" layoutX="10.0" layoutY="10.0" prefHeight="34.21" prefWidth="230.0" style="-fx-background-color: #ec9e14;" text="Accounts" textFill="#f8eded">
+         <font>
+            <Font name="Arial Bold" size="19.0" />
+         </font>
+      </Label>
+      <JFXButton accessibleText="users" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="290.0" prefHeight="34.21" prefWidth="230.0" text="Users" />
+      <JFXButton accessibleText="audit" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="360.0" prefHeight="34.21" prefWidth="230.0" text="Audit Log" />
+      <JFXButton accessibleText="logout" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="605.0" prefHeight="34.21" prefWidth="230.0" text="Logout" />
+   </children>
+</VBox>

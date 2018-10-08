@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="598.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutX="14.0" layoutY="32.0" prefHeight="550.0" prefWidth="572.0" style="-fx-background-radius: 10;" styleClass="side-bar2">
+         <children>
+            <JFXTextField fx:id="txtStockInID" labelFloat="true" layoutX="14.0" layoutY="44.0" prefHeight="25.0" prefWidth="200.0" promptText="Stock In ID" />
+            <JFXDatePicker fx:id="dpStockIn" layoutX="261.0" layoutY="41.0" prefWidth="200.0" promptText="Stock In Date" />
+            <JFXComboBox fx:id="cbSupplier" labelFloat="true" layoutX="14.0" layoutY="113.0" prefWidth="200.0" promptText="Supplier" />
+            <JFXTextField fx:id="txtInvoice" labelFloat="true" layoutX="261.0" layoutY="113.0" prefHeight="25.0" prefWidth="200.0" promptText="Invoice Number" />
+            <JFXDatePicker fx:id="dpInvoice" layoutX="14.0" layoutY="181.0" prefWidth="200.0" promptText="Invoice Date" />
+            <JFXComboBox fx:id="cbPO" labelFloat="true" layoutX="261.0" layoutY="184.0" prefWidth="200.0" promptText="Purchase Order No. (Optional)" />
+            <JFXButton fx:id="btnLoad" layoutX="485.0" layoutY="184.0" text="Load" />
+            <Pane layoutX="16.0" layoutY="232.0" prefHeight="276.0" prefWidth="541.0" styleClass="side-bar2">
+               <children>
+                  <JFXButton fx:id="btnAddItem" layoutX="17.0" layoutY="14.0" text="Add Item" />
+                  <JFXButton fx:id="btnRemoveItem" layoutX="100.0" layoutY="14.0" text="Remove Item" />
+                  <JFXTextField fx:id="txtCost" labelFloat="true" layoutX="393.0" layoutY="14.0" promptText="Total Cost" />
+                  <TableView fx:id="tblDetails" layoutX="13.0" layoutY="65.0" prefHeight="197.0" prefWidth="515.0" styleClass="table-column">
+                     <columns>
+                        <TableColumn fx:id="colItemID" prefWidth="30.0" text="ID" visible="false" />
+                        <TableColumn fx:id="colName" prefWidth="230.0" text="Name" />
+                        <TableColumn fx:id="colQuantity" prefWidth="65.0" text="Quantity" />
+                        <TableColumn fx:id="colCost" prefWidth="109.0" text="Cost" />
+                        <TableColumn fx:id="colSubTotal" prefWidth="109.0" text="Sub Total" />
+                     </columns>
+                  </TableView>
+               </children>
+            </Pane>
+            <Label fx:id="lblError" layoutX="16.0" layoutY="521.0" text="Error" textFill="RED" />
+            <JFXButton fx:id="btnSave" layoutX="346.0" layoutY="517.0" prefHeight="25.0" prefWidth="82.0" text="Save" />
+            <JFXButton fx:id="btnClear" layoutX="475.0" layoutY="517.0" prefHeight="25.0" prefWidth="82.0" text="Clear" />
+         </children>
+      </Pane>
+      <Pane layoutX="27.0" layoutY="14.0" prefHeight="36.0" prefWidth="166.0" style="-fx-background-color: #ec9e14; -fx-background-radius: 10;" styleClass="side-bar2">
+         <children>
+         	  <Label layoutX="21.0" prefHeight="36.0" prefWidth="135.0" text="Stock In">
+               <font>
+                  <Font name="Arial Bold" size="31.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="603.0" layoutY="32.0" prefHeight="550.0" prefWidth="682.0" style="-fx-background-radius: 10;" styleClass="side-bar2">
+         <children>
+            <JFXTextField fx:id="txtSearch" labelFloat="true" layoutX="543.0" layoutY="14.0" prefHeight="25.0" prefWidth="125.0" promptText="Stock In ID" />
+            <TableView fx:id="tblStockIn" layoutX="14.0" layoutY="47.0" prefHeight="475.0" prefWidth="655.0" styleClass="table-column">
+               <columns>
+                  <TableColumn fx:id="colStockInID" prefWidth="75.0" text="Stock in ID" />
+                  <TableColumn fx:id="colTransactionDate" prefWidth="107.0" text="Transaction Date" />
+                  <TableColumn fx:id="colSupplier" prefWidth="226.0" text="Supplier" />
+                  <TableColumn fx:id="colInvoiceNumber" prefWidth="98.0" text="Invoice Number" />
+                  <TableColumn fx:id="colInvoiceDate" prefWidth="139.0" text="Invoice Date" />
+               </columns>
+            </TableView>
+         </children>
+      </Pane>
+      <Pane layoutX="615.0" layoutY="14.0" prefHeight="36.0" prefWidth="323.0" style="-fx-background-radius: 10; -fx-background-color: #ec9e14;" styleClass="side-bar2">
+         <children>
+            <Label layoutX="11.0" layoutY="2.0" text="Stock In Transactions">
+               <font>
+                  <Font name="Arial Bold" size="29.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

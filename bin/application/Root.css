@@ -1,0 +1,11 @@
+.side-bar2{
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0.0, 0.0, 0.0, 0.8), 7.0, 0.0, 0.0,0.0);
+}
+
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {
+    -fx-background-color: #99c286;
+    -fx-border-color: gray;
+}

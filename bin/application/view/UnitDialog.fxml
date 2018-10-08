@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="500.0" prefWidth="500.0" style="-fx-background-radius: 30; -fx-border-radius: 30;" stylesheets="@../Root.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgba(192,192,192,0.5); -fx-background-radius: 30; -fx-border-radius: 30;" BorderPane.alignment="CENTER">
+         <children>
+            <Pane layoutX="15.0" layoutY="59.0" prefHeight="414.0" prefWidth="471.0" style="-fx-border-radius: 10; -fx-background-radius: 10;" styleClass="side-bar2">
+               <children>
+                  <JFXTextField fx:id="txtSearch" labelFloat="true" layoutX="348.0" layoutY="29.0" prefHeight="25.0" prefWidth="108.0" promptText="Search by unit type" />
+                  <JFXTextField fx:id="txtUnitID" labelFloat="true" layoutX="15.0" layoutY="75.0" prefHeight="25.0" prefWidth="64.0" promptText="Unit ID" />
+                  <JFXTextField fx:id="txtDescription" labelFloat="true" layoutX="162.0" layoutY="75.0" prefHeight="25.0" prefWidth="295.0" promptText="Description" />
+                  <TableView fx:id="tblUnit" layoutX="15.0" layoutY="117.0" prefHeight="207.0" prefWidth="442.0" styleClass="table-column">
+                     <columns>
+                        <TableColumn fx:id="colUnitID" prefWidth="116.0" text="Unit ID" />
+                        <TableColumn fx:id="colDescription" prefWidth="322.0" text="Description" />
+                     </columns>
+                  </TableView>
+                  <JFXButton fx:id="btnSave" layoutX="260.0" layoutY="353.0" text="Save" />
+                  <JFXButton fx:id="btnClear" layoutX="333.0" layoutY="353.0" text="Clear" />
+                  <JFXButton fx:id="btnCancel" layoutX="405.0" layoutY="353.0" text="Cancel" />
+                  <Label fx:id="lblError" layoutX="15.0" layoutY="357.0" text="Label" textFill="RED" />
+               </children>
+            </Pane>
+            <Pane layoutX="37.0" layoutY="28.0" prefHeight="62.0" prefWidth="200.0" style="-fx-background-color: #ec9e14; -fx-background-radius: 10;" styleClass="side-bar2">
+               <children>
+                  <Label layoutX="38.0" layoutY="15.0" text="Unit List">
+                     <font>
+                        <Font name="Arial Bold" size="29.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

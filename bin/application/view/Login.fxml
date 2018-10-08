@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <AnchorPane prefHeight="500.0" prefWidth="1000.0" style="-fx-background-color: #c96332;" BorderPane.alignment="CENTER">
+         <children>
+            <Pane layoutX="23.0" layoutY="50.0" prefHeight="400.0" prefWidth="581.0">
+               <children>
+                  <Label layoutX="44.0" layoutY="129.0" prefHeight="38.0" prefWidth="493.0" text="Three Seven Equipment Rental" textFill="#f8eded">
+                     <font>
+                        <Font name="Arial Bold" size="33.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="-3.0" layoutY="185.0" text="Inventory Management and Information System" textFill="#f8eded">
+                     <font>
+                        <Font name="Arial Bold" size="26.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <AnchorPane layoutX="636.0" layoutY="50.0" prefHeight="400.0" prefWidth="350.0" style="-fx-background-color: #ec9e14; -fx-background-radius: 10;" styleClass="side-bar2">
+               <children>
+                  <Label layoutX="122.0" layoutY="45.0" text="User Log in">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="txtID" labelFloat="true" layoutX="43.0" layoutY="156.0" onAction="#onEnter" prefHeight="25.0" prefWidth="275.0" promptText="User ID" />
+                  <JFXPasswordField fx:id="txtPass" labelFloat="true" layoutX="43.0" layoutY="213.0" onAction="#onEnter" prefHeight="25.0" prefWidth="275.0" promptText="Password" />
+                  <JFXButton fx:id="btnSignIn" layoutX="40.0" layoutY="319.0" prefHeight="25.0" prefWidth="275.0" text="Sign in" />
+                  <Label fx:id="lblError" layoutX="115.0" layoutY="270.0" text="Error" textFill="RED" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="598.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutX="14.0" layoutY="50.0" prefHeight="524.0" prefWidth="537.0" style="-fx-background-radius: 10;" styleClass="side-bar2">
+         <children>
+            <JFXTextField fx:id="txtPlateNumber" labelFloat="true" layoutX="27.0" layoutY="65.0" prefHeight="25.0" prefWidth="219.0" promptText="Plate No." />
+            <JFXTextField fx:id="txtMVNumber" labelFloat="true" layoutX="27.0" layoutY="128.0" prefHeight="25.0" prefWidth="219.0" promptText="MV No." />
+            <JFXTextField fx:id="txtEngineNumber" labelFloat="true" layoutX="27.0" layoutY="192.0" prefHeight="25.0" prefWidth="219.0" promptText="Engine No." />
+            <JFXTextField fx:id="txtChassisNumber" labelFloat="true" layoutX="294.0" layoutY="192.0" prefHeight="25.0" prefWidth="219.0" promptText="Chassis No." />
+            <JFXComboBox fx:id="cbModel" labelFloat="true" layoutX="27.0" layoutY="262.0" prefHeight="25.0" prefWidth="161.0" promptText="Model" />
+            <JFXButton fx:id="btnAddModel" layoutX="202.0" layoutY="262.0" prefHeight="25.0" prefWidth="44.0" text="Add" />
+            <JFXComboBox fx:id="cbType" labelFloat="true" layoutX="301.0" layoutY="262.0" prefHeight="25.0" prefWidth="145.0" promptText="Type" />
+            <JFXButton fx:id="btnAddType" layoutX="460.0" layoutY="262.0" prefHeight="25.0" prefWidth="44.0" text="Add" />
+            <JFXTextField fx:id="txtEncumberedTo" labelFloat="true" layoutX="27.0" layoutY="336.0" prefHeight="25.0" prefWidth="219.0" promptText="Encumbered To" />
+            <JFXComboBox fx:id="cbStatus" labelFloat="true" layoutX="294.0" layoutY="336.0" prefHeight="25.0" prefWidth="219.0" promptText="Status" />
+            <Pane layoutX="13.0" layoutY="381.0" prefHeight="86.0" prefWidth="512.0" styleClass="side-bar2">
+               <children>
+                  <Label layoutX="7.0" text="Maturity" />
+                  <JFXTextField fx:id="txtAmount" labelFloat="true" layoutX="14.0" layoutY="31.0" prefHeight="25.0" prefWidth="219.0" promptText="Amount" />
+                  <JFXDatePicker fx:id="dpMaturity" layoutX="281.0" layoutY="29.0" prefWidth="219.0" promptText="Effective until" />
+               </children>
+            </Pane>
+            <Pane layoutX="302.0" layoutY="32.0" prefHeight="103.0" prefWidth="203.0" style="-fx-border-color: black; -fx-border-width: 2;" styleClass="side-bar2">
+               <children>
+                  <Label layoutX="70.0" layoutY="42.5" text="Insert image" />
+                  <ImageView fx:id="imgVehicle" fitHeight="100.0" fitWidth="200.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <JFXButton fx:id="btnAddImage" layoutX="366.0" layoutY="153.0" text="Add Image" />
+            <Label fx:id="lblError" layoutX="14.0" layoutY="493.0" text="Error" textFill="RED" />
+            <JFXButton fx:id="btnSave" layoutX="312.0" layoutY="489.0" prefHeight="25.0" prefWidth="82.0" text="Save" />
+            <JFXButton fx:id="btnClear" layoutX="441.0" layoutY="489.0" prefHeight="25.0" prefWidth="82.0" text="Clear" />
+         </children>
+      </Pane>
+      <Pane layoutX="29.0" layoutY="26.0" prefHeight="48.0" prefWidth="202.0" style="-fx-background-color: #ec9e14; -fx-background-radius: 10;" styleClass="side-bar2">
+         <children>
+            <Label layoutX="11.0" layoutY="6.0" prefHeight="36.0" prefWidth="187.0" text="Add Vehicle">
+               <font>
+                  <Font name="Arial Bold" size="31.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="565.0" layoutY="50.0" prefHeight="524.0" prefWidth="726.0" style="-fx-background-radius: 10;" styleClass="side-bar2">
+         <children>
+            <JFXButton fx:id="btnRefresh" layoutX="13.0" layoutY="34.0" text="Refresh" />
+            <JFXComboBox fx:id="cbSearch" labelFloat="true" layoutX="398.0" layoutY="28.0" prefHeight="25.0" prefWidth="145.0" promptText="Search By" />
+            <JFXTextField fx:id="txtSearch" labelFloat="true" layoutX="567.0" layoutY="28.0" prefHeight="25.0" prefWidth="145.0" promptText="Enter Keyword" />
+            <TableView fx:id="tblVehicle" layoutX="11.0" layoutY="70.0" prefHeight="365.0" prefWidth="705.0" styleClass="table-column">
+               <columns>
+                  <TableColumn fx:id="colPlateNumber" prefWidth="79.0" text="Plate No." />
+                  <TableColumn fx:id="colMVNumber" prefWidth="120.0" text="MV No." />
+                  <TableColumn fx:id="colEngineNumber" prefWidth="120.0" text="Engine No." />
+                  <TableColumn fx:id="colChassisNumber" prefWidth="111.0" text="Chassis No." />
+                  <TableColumn fx:id="colModel" prefWidth="120.0" text="Model" />
+                  <TableColumn fx:id="colType" prefWidth="120.0" text="Type" />
+                  <TableColumn fx:id="colEncumberedTo" prefWidth="120.0" text="Encumbered To" />
+                  <TableColumn fx:id="colAmount" prefWidth="105.0" text="Amount" />
+                  <TableColumn fx:id="colMaturity" prefWidth="105.0" text="Maturity" />
+                  <TableColumn fx:id="colStatus" prefWidth="100.0" text="Status" />
+               </columns>
+            </TableView>
+            <JFXButton fx:id="btnReport" layoutX="612.0" layoutY="485.0" text="Generate Report" />
+         </children>
+      </Pane>
+      <Pane layoutX="581.0" layoutY="26.0" prefHeight="48.0" prefWidth="187.0" style="-fx-background-color: #ec9e14; -fx-background-radius: 10;" styleClass="side-bar2">
+         <children>
+            <Label layoutX="12.0" layoutY="8.0" text="Vehicle List">
+               <font>
+                  <Font name="Arial Bold" size="29.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
