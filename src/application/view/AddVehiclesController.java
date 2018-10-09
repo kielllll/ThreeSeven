@@ -153,6 +153,11 @@ public class AddVehiclesController implements Initializable {
 //				}
 //			});
 			
+			txtAmount.textProperty().addListener((observable, oldValue, newValue) -> {
+				if(!newValue.matches("\\d*(\\.\\d{0,2})?"))
+					txtAmount.setText(oldValue);
+			});
+			
 			btnSave.setOnAction(e->{
 				if(hasIncompleteFields())
 					Components.showError(lblError, "Error: Please fill up required fields");

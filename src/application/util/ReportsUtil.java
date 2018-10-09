@@ -29,7 +29,7 @@ public class ReportsUtil {
 			jrv.setVisible(true);
 			
 			JFrame frm = new JFrame("Report");
-			frm.setSize(500, 600);
+			frm.setSize(650, 700);
 			frm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			frm.setLocationRelativeTo(null);
 			frm.getContentPane().add(jrv);

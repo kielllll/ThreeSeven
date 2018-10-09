@@ -167,6 +167,11 @@ public class UpdateVehiclesController implements Initializable {
 				else Components.hideError(lblError);
 			});
 			
+			txtAmount.textProperty().addListener((observable, oldValue, newValue) -> {
+				if(!newValue.matches("\\d*(\\.\\d{0,2})?"))
+					txtAmount.setText(oldValue);
+			});
+			
 			btnAddModel.setOnAction(e->{
 				Dialogs.getInstance().showModel();
 			});

@@ -63,6 +63,8 @@ public class StockOutController implements Initializable {
     @FXML
     private JFXButton btnClear;
     @FXML
+    private JFXComboBox<String> cbSearch;
+    @FXML
     private JFXTextField txtSearch;
     @FXML
     private TableView<StockOut> tblStockOut;
@@ -92,6 +94,9 @@ public class StockOutController implements Initializable {
 			
 			cbStatus.getItems().addAll("pending","approved","canceled");
 			cbStatus.setValue("pending");
+			
+			cbSearch.getItems().addAll("Stock out ID","Date","Released To","Remarks","Status");
+			cbSearch.setValue("Stock out ID");
 			
 			dpDate.setValue(LocalDate.now());
 			
@@ -289,10 +294,30 @@ public class StockOutController implements Initializable {
 
 	                // Compare first name and last name of every person with filter text.
 	                String lowerCaseFilter = newValue.toLowerCase();
-
-	                if ((i.getStockOutID()+"").contains(lowerCaseFilter)) {
+	                
+	                switch(cbSearch.getValue()) {
+	                case "Stock out ID": if ((i.getStockOutID()+"").contains(lowerCaseFilter)) {
+						                    return true; // Filter matches first name.
+						                }
+						                	break;
+	                case "Date": if (((i.getDate()+"").toLowerCase()).contains(lowerCaseFilter)) {
 	                    return true; // Filter matches first name.
-	                } 
+	                }
+
+	                case "Released To": if (((i.getReleasedTo()+"").toLowerCase()).contains(lowerCaseFilter)) {
+	                    return true; // Filter matches first name.
+	                }
+
+	                case "Remarks": if (((i.getRemarks()+"").toLowerCase()).contains(lowerCaseFilter)) {
+	                    return true; // Filter matches first name.
+	                }
+
+	                case "Status": if (((i.getStatus()+"").toLowerCase()).contains(lowerCaseFilter)) {
+	                    return true; // Filter matches first name.
+	                }
+
+	                }
+	                
 	                return false; // Does not match.
 	            });
 	            

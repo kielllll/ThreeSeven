@@ -50,7 +50,8 @@
       </Pane>
       <Pane layoutX="603.0" layoutY="32.0" prefHeight="550.0" prefWidth="682.0" style="-fx-background-radius: 10;" styleClass="side-bar2">
          <children>
-            <JFXTextField fx:id="txtSearch" labelFloat="true" layoutX="543.0" layoutY="14.0" prefHeight="25.0" prefWidth="125.0" promptText="Stock Adjustment ID" />
+            <JFXComboBox fx:id="cbSearch" labelFloat="true" layoutX="388.0" layoutY="14.0" prefHeight="25.0" prefWidth="135.0" promptText="Search By" />
+            <JFXTextField fx:id="txtSearch" labelFloat="true" layoutX="543.0" layoutY="14.0" prefHeight="25.0" prefWidth="125.0" promptText="Enter Keyword" />
             <TableView fx:id="tblStockAdjustment" layoutX="14.0" layoutY="47.0" prefHeight="475.0" prefWidth="655.0" styleClass="table-column">
                <columns>
                   <TableColumn fx:id="colStockAdjID" prefWidth="49.0" text="ID" />

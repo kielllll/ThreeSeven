@@ -78,6 +78,8 @@ public class StockInController implements Initializable {
     @FXML
     private JFXButton btnClear;
     @FXML
+    private JFXComboBox<String> cbSearch;
+    @FXML
     private JFXTextField txtSearch;
     @FXML
     private TableView<StockIn> tblStockIn;
@@ -111,6 +113,9 @@ public class StockInController implements Initializable {
 			txtCost.setText(cost+"");
 			
 			dpStockIn.setValue(LocalDate.now());
+			
+			cbSearch.getItems().addAll("Stock in ID","Transaction Date","Supplier","Invoice Number","Invoice Date");
+			cbSearch.setValue("Stock in ID");
 			
 			txtInvoice.textProperty().addListener((observable, oldValue, newValue) -> {
 				if(!newValue.matches("[0-9]*"))
@@ -368,9 +373,28 @@ public class StockInController implements Initializable {
 	                // Compare first name and last name of every person with filter text.
 	                String lowerCaseFilter = newValue.toLowerCase();
 
-	                if (((i.getStockInID()+"").toLowerCase()).contains(lowerCaseFilter)) {
-	                    return true; // Filter matches first name.
-	                } 
+	                switch(cbSearch.getValue()) {
+	                case "Stock in ID":  if (((i.getStockInID()+"")).contains(lowerCaseFilter)) {
+						                    return true; // Filter matches first name.
+						                } 
+						                	break;
+	                case "Transaction Date":  if (((i.getStockDate()+"").toLowerCase()).contains(lowerCaseFilter)) {
+							                    return true; // Filter matches first name.
+							                } 
+							                	break;
+	                case "Supplier":  if (((i.getSupplier()+"").toLowerCase()).contains(lowerCaseFilter)) {
+					                    return true; // Filter matches first name.
+					                } 
+					                	break;
+	                case "Invoice Number":  if (((i.getInvoiceNumber()+"")).contains(lowerCaseFilter)) {
+					                    return true; // Filter matches first name.
+					                } 
+					                	break;
+	                case "Invoice Date":  if (((i.getInvoiceDate()+"").toLowerCase()).contains(lowerCaseFilter)) {
+					                    return true; // Filter matches first name.
+					                } 
+					                	break;
+	                }
 	                return false; // Does not match.
 	            });
 	            

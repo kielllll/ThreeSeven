@@ -63,6 +63,8 @@ public class StockAdjustmentController implements Initializable {
     @FXML
     private JFXButton btnClear;
     @FXML
+    private JFXComboBox<String> cbSearch;
+    @FXML
     private JFXTextField txtSearch;
     @FXML
     private TableView<StockAdjustment> tblStockAdjustment;
@@ -89,6 +91,9 @@ public class StockAdjustmentController implements Initializable {
 			
 			cbStatus.getItems().addAll("pending","approved","canceled");
 			cbStatus.setValue("pending");
+			
+			cbSearch.getItems().addAll("ID","Date Encoded","Remarks","Status");
+			cbSearch.setValue("ID");
 			
 			dpDate.setValue(LocalDate.now());
 			
@@ -280,9 +285,26 @@ public class StockAdjustmentController implements Initializable {
 	                // Compare first name and last name of every person with filter text.
 	                String lowerCaseFilter = newValue.toLowerCase();
 
-	                if (((i.getStockAdjID()+"").toLowerCase()).contains(lowerCaseFilter)) {
-	                    return true; // Filter matches first name.
-	                } 
+//	                cbSearch.getItems().addAll("ID","Date Encoded","Remarks","Status");
+	                switch(cbSearch.getValue()) {
+	                case "ID": if (((i.getStockAdjID()+"")).contains(lowerCaseFilter)) {
+				                    return true; // Filter matches first name.
+				                } 
+				                	break;
+	                case "Date Encoded": if (((i.getDate()+"").toLowerCase()).contains(lowerCaseFilter)) {
+				                    return true; // Filter matches first name.
+				                } 
+				                	break;
+	                case "Remarks": if (((i.getRemarks()+"").toLowerCase()).contains(lowerCaseFilter)) {
+				                    return true; // Filter matches first name.
+				                } 
+				                	break;
+	                case "Status": if (((i.getStatus()+"").toLowerCase()).contains(lowerCaseFilter)) {
+				                    return true; // Filter matches first name.
+				                } 
+				                	break;
+	                }
+	                
 	                return false; // Does not match.
 	            });
 	            
