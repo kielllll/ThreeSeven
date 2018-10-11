@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
@@ -22,6 +23,8 @@ import javafx.scene.control.TableView;
 
 public class AuditLogController implements Initializable {
 	
+	@FXML
+	private JFXButton btnBackUp;
 	@FXML
     private JFXComboBox<String> cbSearch;
     @FXML
@@ -84,6 +87,25 @@ public class AuditLogController implements Initializable {
 															.collect(Collectors.toList());
 					sortedList.stream()
 						.forEach(a->list.add(a));
+				}
+			});
+			
+			btnBackUp.setOnAction(e->{
+				Process p = null;
+				
+				try {
+					Runtime runtime = Runtime.getRuntime();
+				 	String executeCmd = "C:/xampp/mysql/bin/mysqldump -uroot --add-drop-database -B Three_Seven -r C:/kiel/ThreeSeven/ThreeSeven_"+LocalDate.now()+".sql";
+//		            p = runtime.exec("mysqldump -uroot -p ThreeSeven > C:\\kiel\\ThreeSeven.sql");
+				 	p = runtime.exec(executeCmd);
+		            //change the dbpass and dbname with your dbpass and dbname
+		            int processComplete = p.waitFor();
+
+		            if (processComplete == 0) 
+		            	System.out.println("Backup created successfully");
+		            else System.out.println("Could not create backup");
+				} catch(Exception err) {
+					err.printStackTrace();
 				}
 			});
 		} catch(Exception err) {
