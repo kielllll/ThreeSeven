@@ -118,7 +118,7 @@ public class UpdateUsersController implements Initializable {
 				if(Bindings.isNotEmpty(tblUser.getItems()).get()) {
 					User u = tblUser.getFocusModel().getFocusedItem();
 					
-					txtUserID.setText(u.getUserID()+"");
+					txtUserID.setText(u.getLoginID()+"");
 					txtFirstname.setText(u.getFirstname());
 					txtLastname.setText(u.getLastname());
 					cbAccessType.setValue(u.getAccessType());
@@ -135,7 +135,7 @@ public class UpdateUsersController implements Initializable {
 //					} else {
 //						
 //					}
-					User u = new User(Integer.parseInt(txtUserID.getText()),txtFirstname.getText(),txtLastname.getText(),Encryption.hashPassword(txtPass.getText()),cbAccessType.getValue(),cbStatus.getValue());
+					User u = new User(Integer.parseInt(txtUserID.getText()),(10000+(Integer.parseInt(txtUserID.getText()))),txtFirstname.getText(),txtLastname.getText(),Encryption.hashPassword(txtPass.getText()),cbAccessType.getValue(),cbStatus.getValue());
 					int accessType=(u.getAccessType().equalsIgnoreCase("administrator"))?1:2;
 					
 					String query = "UPDATE users SET firstname='"+u.getFirstname()+"', lastname='"+u.getLastname()+"', access_type_ID="+accessType+", status='"+u.getStatus()+"' WHERE user_ID="+Integer.parseInt(txtUserID.getText()+"");
@@ -207,7 +207,7 @@ public class UpdateUsersController implements Initializable {
 			initList();
 			
 			//Bind the tablecolumns to the list
-			colUserID.setCellValueFactory(cellData -> cellData.getValue().userIDProperty().asObject());
+			colUserID.setCellValueFactory(cellData -> cellData.getValue().loginIDProperty().asObject());
 			colFirstname.setCellValueFactory(cellData -> cellData.getValue().firstnameProperty());
 			colLastname.setCellValueFactory(cellData -> cellData.getValue().lastnameProperty());
 			colAccessType.setCellValueFactory(cellData -> cellData.getValue().accessTypeProperty());

@@ -8,6 +8,7 @@ import javafx.beans.property.StringProperty;
 public class User {
 
 	private final IntegerProperty userID;
+	private final IntegerProperty loginID;
 	private final StringProperty firstname;
 	private final StringProperty lastname;
 	private final StringProperty password;
@@ -16,12 +17,13 @@ public class User {
 	
 	//Calling the super constructor to initialize properties
 	public User() {
-		this(0,null,null,null,null,null);
+		this(0,0,null,null,null,null,null);
 	}
 	
 	//Constructor when instantiating an instance of User
-	public User(int userID, String firstname, String lastname, String password, String accessType, String status) {
+	public User(int userID, int loginID, String firstname, String lastname, String password, String accessType, String status) {
 		this.userID = new SimpleIntegerProperty(userID);
+		this.loginID = new SimpleIntegerProperty(loginID);
 		this.firstname = new SimpleStringProperty(firstname);
 		this.lastname = new SimpleStringProperty(lastname);
 		this.password = new SimpleStringProperty(password);
@@ -32,6 +34,10 @@ public class User {
 	//Setter methods
 	public void setUserID(int userID) {
 		this.userID.set(userID);
+	}
+	
+	public void setLoginID(int loginID) {
+		this.loginID.set(loginID);
 	}
 	
 	public void setFirstname(String firstname) {
@@ -61,6 +67,14 @@ public class User {
 	
 	public IntegerProperty userIDProperty() {
 		return userID;
+	}
+
+	public int getLoginID() {
+		return loginID.get();
+	}
+	
+	public IntegerProperty loginIDProperty() {
+		return loginID;
 	}
 	
 	public String getFirstname() {
@@ -107,6 +121,6 @@ public class User {
 	@Override
 	public String toString() {
 		int accessType = (this.accessType.get().equalsIgnoreCase("administrator"))?1:2;
-		return "(NULL,'"+firstname.get()+"','"+lastname.get()+"','"+password.get()+"','"+accessType+"','"+status.get()+"')";
+		return "(NULL,"+loginID.get()+",'"+firstname.get()+"','"+lastname.get()+"','"+password.get()+"','"+accessType+"','"+status.get()+"')";
 	}
 }

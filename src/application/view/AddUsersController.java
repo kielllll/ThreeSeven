@@ -76,7 +76,7 @@ public class AddUsersController implements Initializable {
 		try {
 			initTable();
 			Components.hideError(lblError);
-			txtUserID.setText((UserDAOImpl.getInstance().getAll().size()+1)+"");
+			txtUserID.setText((UserDAOImpl.getInstance().getAll().size()+10001)+"");
 			txtUserID.setEditable(false);
 			
 			AccessTypeDAOImpl.getInstance().getAll()
@@ -120,7 +120,7 @@ public class AddUsersController implements Initializable {
 					if(!Validation.isPasswordValidated(txtPass.getText(),txtConfirm.getText())) {
 						Components.showError(lblError, "Error: Password did not match.");
 					} else {
-						User u = new User(list.size()+1,txtFirstname.getText(),txtLastname.getText(),Encryption.hashPassword(txtPass.getText()),cbAccessType.getValue(),cbStatus.getValue());
+						User u = new User(list.size()+1,(10000+(list.size()+1)),txtFirstname.getText(),txtLastname.getText(),Encryption.hashPassword(txtPass.getText()),cbAccessType.getValue(),cbStatus.getValue());
 						UserDAOImpl.getInstance().insert(u);
 						list.add(u);
 						if(!Sessions.getInstance().getUser().getAccessType().equals("Master"))
@@ -179,7 +179,7 @@ public class AddUsersController implements Initializable {
 			initList();
 			
 			//Bind the table columns to the list
-			colUserID.setCellValueFactory(cellData -> cellData.getValue().userIDProperty().asObject());
+			colUserID.setCellValueFactory(cellData -> cellData.getValue().loginIDProperty().asObject());
 			colFirstname.setCellValueFactory(cellData -> cellData.getValue().firstnameProperty());
 			colLastname.setCellValueFactory(cellData -> cellData.getValue().lastnameProperty());
 			colAccessType.setCellValueFactory(cellData -> cellData.getValue().accessTypeProperty());
@@ -223,7 +223,7 @@ public class AddUsersController implements Initializable {
 	
 	public void clear() {
 		Components.hideError(lblError);
-		txtUserID.setText((UserDAOImpl.getInstance().getAll().size()+1)+"");
+		txtUserID.setText((UserDAOImpl.getInstance().getAll().size()+10001)+"");
 		txtFirstname.setText("");
 		txtLastname.setText("");
 		txtPass.setText("");

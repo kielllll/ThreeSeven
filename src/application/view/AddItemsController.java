@@ -1,12 +1,9 @@
 package application.view;
 
-import java.io.File;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-
-import javax.swing.JOptionPane;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -21,7 +18,6 @@ import application.model.Item;
 import application.model.Stock;
 import application.util.Components;
 import application.util.Dialogs;
-import application.util.ReportsUtil;
 import application.util.Sessions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -152,15 +148,7 @@ public class AddItemsController implements Initializable {
 			});
 			
 			btnReport.setOnAction(e->{
-				try {
-					File file = new File("Inventory.jrxml");
-//					File file = new File("src/Inventory.jrxml");
-//					File file = new File(Main.class.getResource("../Inventory.jrxml").toString());
-					ReportsUtil.getInstance().showReport(file);
-				} catch(Exception err) {
-//					err.printStackTrace();
-					JOptionPane.showMessageDialog(null, err.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-				}
+				Dialogs.getInstance().showReports_Item();
 			});
 		} catch(Exception err) {
 			err.printStackTrace();

@@ -58,18 +58,18 @@
 			<frame>
 				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="0001eee0-4770-40ea-973a-282901de2fdc"/>
 				<staticText>
-					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="6f6b4309-d914-448f-98e6-7869ce4f36b6"/>
+					<reportElement x="20" y="20" width="300" height="30" forecolor="#FFFFFF" uuid="6f6b4309-d914-448f-98e6-7869ce4f36b6"/>
 					<textElement>
-						<font size="34" isBold="true"/>
+						<font size="20" isBold="true"/>
 					</textElement>
-					<text><![CDATA[TITLE]]></text>
+					<text><![CDATA[Three Seven Equipment Rental]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="e86fbd3e-87bc-491a-a6e4-e9329c6c7750"/>
 					<textElement textAlignment="Right">
-						<font size="14" isBold="false"/>
+						<font size="10" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Add a description here]]></text>
+					<text><![CDATA[List of Heavy Equipment]]></text>
 				</staticText>
 			</frame>
 		</band>

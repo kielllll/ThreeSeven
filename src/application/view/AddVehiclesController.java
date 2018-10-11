@@ -23,7 +23,6 @@ import application.model.VehicleCategory;
 import application.model.VehicleModel;
 import application.util.Components;
 import application.util.Dialogs;
-import application.util.ReportsUtil;
 import application.util.Sessions;
 import application.util.StageController;
 import javafx.collections.FXCollections;
@@ -182,12 +181,7 @@ public class AddVehiclesController implements Initializable {
 			});
 			
 			btnReport.setOnAction(e->{
-				try {
-					File file = new File("Vehicle.jrxml");
-					ReportsUtil.getInstance().showReport(file);
-				} catch(Exception err) {
-					err.printStackTrace();
-				}
+				Dialogs.getInstance().showReports_Vehicle();
 			});
 		} catch(Exception err) {
 			err.printStackTrace();

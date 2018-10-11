@@ -19,10 +19,10 @@ public class AuditLogDAOImpl implements AuditLogDAO{
 		List<AuditLog> list = new LinkedList<AuditLog>();
 		try {
 			Statement st = Database.getInstance().getDBConn().createStatement();
-			ResultSet rs = st.executeQuery("SELECT a.audit_log_ID, a.date, a.time, u.user_ID, u.firstname, u.lastname, at.description, a.action FROM audit_logs a INNER JOIN users u ON a.user_ID = u.user_ID INNER JOIN access_types at ON u.access_type_ID = at.access_type_ID");
+			ResultSet rs = st.executeQuery("SELECT a.audit_log_ID, a.date, a.time, u.login_ID, u.firstname, u.lastname, at.description, a.action FROM audit_logs a INNER JOIN users u ON a.user_ID = u.user_ID INNER JOIN access_types at ON u.access_type_ID = at.access_type_ID");
 			
 			while(rs.next()) {
-				list.add(new AuditLog(rs.getInt("audit_log_ID"), Date.parse(rs.getString("date")), rs.getString("time"), rs.getInt("user_ID"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("description"), rs.getString("action")));
+				list.add(new AuditLog(rs.getInt("audit_log_ID"), Date.parse(rs.getString("date")), rs.getString("time"), rs.getInt("login_ID"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("description"), rs.getString("action")));
 			}
 			
 			st.close();

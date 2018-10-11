@@ -79,7 +79,7 @@ public class LoginController implements Initializable {
 						User u = UserDAOImpl.getInstance()
 								.getAll()
 								.parallelStream()
-								.filter(user->user.getUserID()==userID)
+								.filter(user->user.getLoginID()==userID)
 								.findFirst()
 								.get();
 						Sessions.getInstance().setUser(u);

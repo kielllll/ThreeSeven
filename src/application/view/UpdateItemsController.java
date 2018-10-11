@@ -1,6 +1,5 @@
 package application.view;
 
-import java.io.File;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -17,7 +16,6 @@ import application.DAO.UnitDAOImpl;
 import application.model.Item;
 import application.util.Components;
 import application.util.Dialogs;
-import application.util.ReportsUtil;
 import application.util.Sessions;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -171,12 +169,7 @@ public class UpdateItemsController implements Initializable {
 			});
 			
 			btnReport.setOnAction(e->{
-				try {
-					File file = new File("Inventory.jrxml");
-					ReportsUtil.getInstance().showReport(file);
-				} catch(Exception err) {
-					err.printStackTrace();
-				}
+				Dialogs.getInstance().showReports_Item();
 			});
 		} catch(Exception err) {
 			err.printStackTrace();

@@ -17,10 +17,10 @@ public class UserDAOImpl implements UserDAO {
 		List<User> list = new LinkedList<User>();
 		try {
 			Statement st = Database.getInstance().getDBConn().createStatement();
-			ResultSet rs = st.executeQuery("SELECT u.user_ID, u.firstname, u.lastname, u.password, at.description, u.status FROM access_types at INNER JOIN users u ON at.access_type_ID = u.access_type_ID");
+			ResultSet rs = st.executeQuery("SELECT u.user_ID, u.login_ID, u.firstname, u.lastname, u.password, at.description, u.status FROM access_types at INNER JOIN users u ON at.access_type_ID = u.access_type_ID");
 			
 			while(rs.next()) {
-				list.add(new User(rs.getInt("user_ID"), rs.getString("firstname"),rs.getString("lastname"),rs.getString("password"),rs.getString("description"),rs.getString("status")));
+				list.add(new User(rs.getInt("user_ID"), rs.getInt("login_ID"), rs.getString("firstname"),rs.getString("lastname"),rs.getString("password"),rs.getString("description"),rs.getString("status")));
 			}
 			
 			st.close();
@@ -70,7 +70,7 @@ public class UserDAOImpl implements UserDAO {
 			for(User u : getAll()) {
 				if(u.getStatus().equalsIgnoreCase("inactive"))
 					continue;
-				if(userID==u.getUserID()) {
+				if(userID==u.getLoginID()) {
 					if(Encryption.validatePassword(password, u.getPassword())) {
 						found = true;
 						break;

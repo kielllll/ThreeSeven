@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import application.view.ConfirmDialogController;
 import application.view.PO_ItemsDialogController;
+import application.view.Reports_ItemController;
+import application.view.Reports_VehicleController;
 import application.view.SA_ItemsDialogController;
 import application.view.SI_ItemsDialogController;
 import application.view.SO_ItemsDialogController;
@@ -29,6 +31,8 @@ public class Dialogs {
 	private Stage stgSI_Item;
 	private Stage stgSO_Item;
 	private Stage stgSA_Item;
+	private Stage stgReports_Item;
+	private Stage stgReports_Vehicle;
 	
 	private HashMap<String, Stage> container = new HashMap<>();
 	
@@ -74,6 +78,14 @@ public class Dialogs {
 			stgSA_Item = new Stage();
 			configStage(stgSA_Item);
 			
+			// for item reports dialog
+			stgReports_Item = new Stage();
+			configStage(stgReports_Item);
+			
+			// for vehicle reports dialog
+			stgReports_Vehicle = new Stage();
+			configStage(stgReports_Vehicle);
+			
 			container.put("PO_Item", stgPO_Item);
 			container.put("Unit", stgUnit);
 			container.put("Confirm", stgConfirm);
@@ -82,6 +94,8 @@ public class Dialogs {
 			container.put("SI_Item", stgSI_Item);
 			container.put("SO_Item", stgSO_Item);
 			container.put("SA_Item", stgSA_Item);
+			container.put("Reports_Item", stgReports_Item);
+			container.put("Reports_Vehicle", stgReports_Vehicle);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -117,7 +131,6 @@ public class Dialogs {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(this.getClass().getResource("../view/ConfirmDialog.fxml"));
 			loader.setController(ConfirmDialogController.getInstance());
-//			stgConfirm.setScene(new Scene(loader.load(),400,250));
 			loadAndSetAction(stgConfirm, loader, 400, 250);
 			ConfirmDialogController.getInstance().setHeader(header);
 			ConfirmDialogController.getInstance().setContent(content);
@@ -184,6 +197,30 @@ public class Dialogs {
 			loader.setController(SA_ItemsDialogController.getInstance());
 			loadAndSetAction(stgSA_Item,loader);
 			stgSA_Item.showAndWait();
+		} catch(Exception err) {
+			err.printStackTrace();
+		}
+	}
+	
+	public void showReports_Item() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(this.getClass().getResource("../view/Reports_Item.fxml"));
+			loader.setController(Reports_ItemController.getInstance());
+			loadAndSetAction(stgReports_Item,loader,400,250);
+			stgReports_Item.showAndWait();
+		} catch(Exception err) {
+			err.printStackTrace();
+		}
+	}
+	
+	public void showReports_Vehicle() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(this.getClass().getResource("../view/Reports_Vehicle.fxml"));
+			loader.setController(Reports_VehicleController.getInstance());
+			loadAndSetAction(stgReports_Vehicle,loader,400,250);
+			stgReports_Vehicle.showAndWait();
 		} catch(Exception err) {
 			err.printStackTrace();
 		}
