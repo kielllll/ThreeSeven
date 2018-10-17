@@ -91,25 +91,28 @@ public class UpdateItemsController implements Initializable {
 			Components.hideError(lblError);
 			
 			cbSearch.getItems().addAll("Name","Supplier","Description","Unit","Status");
+			cbSearch.setValue("Name");
 			cbStatus.getItems().addAll("in stock", "out of stock");
 			
 			initTable();
 			
 			tblItem.setOnMouseClicked(e->{
 				if(Bindings.isNotEmpty(tblItem.getItems()).get()) {
-					Item i = tblItem.getFocusModel().getFocusedItem();
-					
-					tempName = i.getName();
-					txtItemID.setText(i.getItemID()+"");
-					txtName.setText(i.getName());
-					cbSupplier.setValue(i.getSupplier());
-					txtDescription.setText(i.getDescription());
-					txtPrice.setText(i.getPrice()+"");
-					cbUnit.setValue(i.getUnit());
-					cbStatus.setValue(i.getStatus());
+					showDetails(tblItem.getFocusModel().getFocusedItem());
 				}
 			});
 			
+			tblItem.setOnKeyPressed(e->{
+				if(Bindings.isNotEmpty(tblItem.getItems()).get()) {
+					String keyCode = e.getCode().toString();
+					switch(keyCode) {
+					case "UP": showDetails(tblItem.getFocusModel().getFocusedItem());
+						break;
+					case "DOWN": showDetails(tblItem.getFocusModel().getFocusedItem());
+						break;
+					}
+				}
+			});
 			
 			txtName.textProperty().addListener((observable, oldValue, newValue) -> {
 				if(newValue.length()>50)
@@ -291,6 +294,21 @@ public class UpdateItemsController implements Initializable {
 		cbUnit.setValue(null);
 		cbStatus.setValue(null);
 		tempName = "";
+	}
+	
+	public void showDetails(Item i) {
+		try {
+			tempName = i.getName();
+			txtItemID.setText(i.getItemID()+"");
+			txtName.setText(i.getName());
+			cbSupplier.setValue(i.getSupplier());
+			txtDescription.setText(i.getDescription());
+			txtPrice.setText(i.getPrice()+"");
+			cbUnit.setValue(i.getUnit());
+			cbStatus.setValue(i.getStatus());
+		} catch(Exception err) {
+			err.printStackTrace();
+		}
 	}
 	
 	public boolean isItemExisting(String name) {

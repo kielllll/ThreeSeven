@@ -126,61 +126,18 @@ public class StockInController implements Initializable {
 			
 			tblStockIn.setOnMouseClicked(s->{
 				if(Bindings.isNotEmpty(tblStockIn.getItems()).get()) {
-					StockIn stock = tblStockIn.getFocusModel().getFocusedItem();
-					
-					disableField(true);
-					
-					cbPO.getItems().clear();
-					txtStockInID.setText(stock.getStockInID()+"");
-					dpStockIn.setValue(stock.getStockDate());
-					cbSupplier.setValue(stock.getSupplier());
-					txtInvoice.setText(stock.getInvoiceNumber()+"");
-					dpInvoice.setValue(stock.getInvoiceDate());
-					
-					List<StockInDetails> listDetails = StockInDetailsDAOImpl.getInstance()
-																		.getAll()
-																		.parallelStream()
-																		.filter(i->i.getStockInID()==stock.getStockInID())
-																		.sorted((o1,o2) -> (o1.getStockInID()>o2.getStockInID())?1:-1)
-																		.collect(Collectors.toList());
-					
-					tblDetails.getItems().clear();
-					listDetails.stream()
-							.forEach(i->{
-								i.setStockInID(ItemDAOImpl.getInstance()
-														.getAll()
-														.stream()
-														.filter(item->item.getName().equals(i.getName()))
-														.findFirst()
-														.get()
-														.getItemID());	
-								tblDetails.getItems().add(i);
-							});
-					updateCost();
-					
-					boolean existing = StockInWithPODAOImpl.getInstance()
-													.getAll()
-													.stream()
-													.filter(i->i.getStockID()==stock.getStockInID())
-													.findFirst()
-													.isPresent();
-					
-					if(existing) {
-						cbPO.getItems().add(StockInWithPODAOImpl.getInstance()
-														.getAll()
-														.stream()
-														.filter(i->i.getStockID()==stock.getStockInID())
-														.findFirst()
-														.get()
-														.getPoID());
-						
-						cbPO.setValue(StockInWithPODAOImpl.getInstance()
-														.getAll()
-														.stream()
-														.filter(i->i.getStockID()==stock.getStockInID())
-														.findFirst()
-														.get()
-														.getPoID());
+					showDetails(tblStockIn.getFocusModel().getFocusedItem());
+				}
+			});
+			
+			tblStockIn.setOnKeyPressed(e->{
+				if(Bindings.isNotEmpty(tblStockIn.getItems()).get()) {
+					String keyCode = e.getCode().toString();
+					switch(keyCode) {
+					case "UP": showDetails(tblStockIn.getFocusModel().getFocusedItem());
+						break;
+					case "DOWN": showDetails(tblStockIn.getFocusModel().getFocusedItem());
+						break;
 					}
 				}
 			});
@@ -446,6 +403,67 @@ public class StockInController implements Initializable {
 							}
 						});
 			
+		} catch(Exception err) {
+			err.printStackTrace();
+		}
+	}
+	
+	public void showDetails(StockIn stock) {
+		try {
+			disableField(true);
+			
+			cbPO.getItems().clear();
+			txtStockInID.setText(stock.getStockInID()+"");
+			dpStockIn.setValue(stock.getStockDate());
+			cbSupplier.setValue(stock.getSupplier());
+			txtInvoice.setText(stock.getInvoiceNumber()+"");
+			dpInvoice.setValue(stock.getInvoiceDate());
+			
+			List<StockInDetails> listDetails = StockInDetailsDAOImpl.getInstance()
+																.getAll()
+																.parallelStream()
+																.filter(i->i.getStockInID()==stock.getStockInID())
+																.sorted((o1,o2) -> (o1.getStockInID()>o2.getStockInID())?1:-1)
+																.collect(Collectors.toList());
+			
+			tblDetails.getItems().clear();
+			listDetails.stream()
+					.forEach(i->{
+						i.setStockInID(ItemDAOImpl.getInstance()
+												.getAll()
+												.stream()
+												.filter(item->item.getName().equals(i.getName()))
+												.findFirst()
+												.get()
+												.getItemID());	
+						tblDetails.getItems().add(i);
+					});
+			updateCost();
+			
+			boolean existing = StockInWithPODAOImpl.getInstance()
+											.getAll()
+											.stream()
+											.filter(i->i.getStockID()==stock.getStockInID())
+											.findFirst()
+											.isPresent();
+			
+			if(existing) {
+				cbPO.getItems().add(StockInWithPODAOImpl.getInstance()
+												.getAll()
+												.stream()
+												.filter(i->i.getStockID()==stock.getStockInID())
+												.findFirst()
+												.get()
+												.getPoID());
+				
+				cbPO.setValue(StockInWithPODAOImpl.getInstance()
+												.getAll()
+												.stream()
+												.filter(i->i.getStockID()==stock.getStockInID())
+												.findFirst()
+												.get()
+												.getPoID());
+			}
 		} catch(Exception err) {
 			err.printStackTrace();
 		}

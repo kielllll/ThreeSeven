@@ -33,13 +33,13 @@
                   <JFXDatePicker fx:id="dpMaturity" layoutX="281.0" layoutY="29.0" prefWidth="219.0" promptText="Effective until" />
                </children>
             </Pane>
-            <Pane layoutX="302.0" layoutY="32.0" prefHeight="103.0" prefWidth="203.0" style="-fx-border-color: black; -fx-border-width: 2;" styleClass="side-bar2">
+            <Pane layoutX="302.0" layoutY="32.0" prefHeight="132.0" prefWidth="203.0" style="-fx-border-color: black; -fx-border-width: 2;" styleClass="side-bar2">
                <children>
-                  <Label layoutX="70.0" layoutY="42.5" text="Insert image" />
-                  <ImageView fx:id="imgVehicle" fitHeight="100.0" fitWidth="200.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="70.0" layoutY="60.0" text="Insert image" />
+                  <ImageView fx:id="imgVehicle" fitHeight="132.0" fitWidth="200.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </Pane>
-            <JFXButton fx:id="btnAddImage" layoutX="366.0" layoutY="153.0" text="Add Image" />
+            <JFXButton fx:id="btnAddImage" layoutX="366.0" layoutY="167.0" text="Add Image" />
             <Label fx:id="lblError" layoutX="14.0" layoutY="493.0" text="Error" textFill="RED" />
             <JFXButton fx:id="btnSave" layoutX="312.0" layoutY="489.0" prefHeight="25.0" prefWidth="82.0" text="Save" />
             <JFXButton fx:id="btnClear" layoutX="441.0" layoutY="489.0" prefHeight="25.0" prefWidth="82.0" text="Clear" />

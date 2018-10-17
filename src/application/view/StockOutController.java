@@ -109,40 +109,20 @@ public class StockOutController implements Initializable {
 			
 			tblStockOut.setOnMouseClicked(e->{
 				if(Bindings.isNotEmpty(tblStockOut.getItems()).get()) {
-					StockOut s = tblStockOut.getFocusModel().getFocusedItem();
+					showDetails(tblStockOut.getFocusModel().getFocusedItem());
+				}
+			});
+			
+			tblStockOut.setOnKeyPressed(e->{
+				if(Bindings.isNotEmpty(tblStockOut.getItems()).get()) {
+					String keyCode = e.getCode().toString();
 					
-					disableField(true);
-					
-					txtStockOutID.setText(s.getStockOutID()+"");
-					dpDate.setValue(s.getDate());
-					txtReleasedTo.setText(s.getReleasedTo());
-					cbStatus.setValue(s.getStatus());
-					txtRemarks.setText(s.getRemarks());
-					
-					if(cbStatus.getValue().equals("pending"))
-						cbStatus.setDisable(false);
-					else cbStatus.setDisable(true);
-					
-					List<StockOutDetails> listDetails = StockOutDetailsDAOImpl.getInstance()
-																		.getAll()
-																		.stream()
-																		.filter(i-> i.getStockOutID()==s.getStockOutID())
-																		.sorted((o1,o2) -> (o1.getStockOutID()>o2.getStockOutID())?1:-1)
-																		.collect(Collectors.toList());
-					
-					tblDetails.getItems().clear();
-					listDetails.stream()
-							.forEach(i->{
-								i.setStockOutID(ItemDAOImpl.getInstance()
-														.getAll()
-														.stream()
-														.filter(item->item.getName().equals(i.getName()))
-														.findFirst()
-														.get()
-														.getItemID());
-								
-								tblDetails.getItems().add(i);
-							});
+					switch(keyCode) {
+					case "UP": showDetails(tblStockOut.getFocusModel().getFocusedItem());
+						break;
+					case "DOWN": showDetails(tblStockOut.getFocusModel().getFocusedItem());
+						break;
+					}
 				}
 			});
 			
@@ -376,6 +356,45 @@ public class StockOutController implements Initializable {
 							}
 						});
 			
+		} catch(Exception err) {
+			err.printStackTrace();
+		}
+	}
+	
+	public void showDetails(StockOut s) {
+		try {
+			disableField(true);
+			
+			txtStockOutID.setText(s.getStockOutID()+"");
+			dpDate.setValue(s.getDate());
+			txtReleasedTo.setText(s.getReleasedTo());
+			cbStatus.setValue(s.getStatus());
+			txtRemarks.setText(s.getRemarks());
+			
+			if(cbStatus.getValue().equals("pending"))
+				cbStatus.setDisable(false);
+			else cbStatus.setDisable(true);
+			
+			List<StockOutDetails> listDetails = StockOutDetailsDAOImpl.getInstance()
+																.getAll()
+																.stream()
+																.filter(i-> i.getStockOutID()==s.getStockOutID())
+																.sorted((o1,o2) -> (o1.getStockOutID()>o2.getStockOutID())?1:-1)
+																.collect(Collectors.toList());
+			
+			tblDetails.getItems().clear();
+			listDetails.stream()
+					.forEach(i->{
+						i.setStockOutID(ItemDAOImpl.getInstance()
+												.getAll()
+												.stream()
+												.filter(item->item.getName().equals(i.getName()))
+												.findFirst()
+												.get()
+												.getItemID());
+						
+						tblDetails.getItems().add(i);
+					});
 		} catch(Exception err) {
 			err.printStackTrace();
 		}

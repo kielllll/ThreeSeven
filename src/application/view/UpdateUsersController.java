@@ -116,13 +116,20 @@ public class UpdateUsersController implements Initializable {
 			
 			tblUser.setOnMouseClicked(e->{
 				if(Bindings.isNotEmpty(tblUser.getItems()).get()) {
-					User u = tblUser.getFocusModel().getFocusedItem();
+					showDetails(tblUser.getFocusModel().getFocusedItem());
+				}
+			});
+			
+			tblUser.setOnKeyPressed(e->{
+				if(Bindings.isNotEmpty(tblUser.getItems()).get()) {
+					String keyCode = e.getCode().toString();
 					
-					txtUserID.setText(u.getLoginID()+"");
-					txtFirstname.setText(u.getFirstname());
-					txtLastname.setText(u.getLastname());
-					cbAccessType.setValue(u.getAccessType());
-					cbStatus.setValue(u.getStatus());
+					switch(keyCode) {
+					case "UP": showDetails(tblUser.getFocusModel().getFocusedItem());
+						break;
+					case "DOWN": showDetails(tblUser.getFocusModel().getFocusedItem());
+						break;
+					}
 				}
 			});
 			
@@ -135,14 +142,14 @@ public class UpdateUsersController implements Initializable {
 //					} else {
 //						
 //					}
-					User u = new User(Integer.parseInt(txtUserID.getText()),(10000+(Integer.parseInt(txtUserID.getText()))),txtFirstname.getText(),txtLastname.getText(),Encryption.hashPassword(txtPass.getText()),cbAccessType.getValue(),cbStatus.getValue());
+					User u = new User(Integer.parseInt(txtUserID.getText()),((Integer.parseInt(txtUserID.getText()))),txtFirstname.getText(),txtLastname.getText(),Encryption.hashPassword(txtPass.getText()),cbAccessType.getValue(),cbStatus.getValue());
 					int accessType=(u.getAccessType().equalsIgnoreCase("administrator"))?1:2;
 					
-					String query = "UPDATE users SET firstname='"+u.getFirstname()+"', lastname='"+u.getLastname()+"', access_type_ID="+accessType+", status='"+u.getStatus()+"' WHERE user_ID="+Integer.parseInt(txtUserID.getText()+"");
+					String query = "UPDATE users SET firstname='"+u.getFirstname()+"', lastname='"+u.getLastname()+"', access_type_ID="+accessType+", status='"+u.getStatus()+"' WHERE login_ID="+Integer.parseInt(txtUserID.getText()+"");
 					UserDAOImpl.getInstance().update(query);
 					
 					list.parallelStream()
-						.filter(user -> user.getUserID()==u.getUserID())
+						.filter(user -> user.getLoginID()==u.getLoginID())
 						.forEach(user -> {
 							user.setFirstname(u.getFirstname());
 							user.setLastname(u.getLastname());
@@ -258,6 +265,18 @@ public class UpdateUsersController implements Initializable {
 		txtConfirm.setText("");
 		cbAccessType.setValue(null);
 		cbStatus.setValue(null);
+	}
+	
+	public void showDetails(User u) {
+		try {
+			txtUserID.setText(u.getLoginID()+"");
+			txtFirstname.setText(u.getFirstname());
+			txtLastname.setText(u.getLastname());
+			cbAccessType.setValue(u.getAccessType());
+			cbStatus.setValue(u.getStatus());
+		} catch(Exception err) {
+			err.printStackTrace();
+		}
 	}
 	
 	public static UpdateUsersController getInstance() {

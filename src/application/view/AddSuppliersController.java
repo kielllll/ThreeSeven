@@ -50,6 +50,8 @@ public class AddSuppliersController implements Initializable {
 	@FXML
 	private JFXButton btnRefresh;
 	@FXML
+	private JFXComboBox<String> cbSearch;
+	@FXML
 	private JFXTextField txtSearch;
 	@FXML
 	private TableView<Supplier> tblSupplier;
@@ -78,8 +80,11 @@ public class AddSuppliersController implements Initializable {
 			Components.hideError(lblError);
 			
 			// Sets fixed value on the combo box
-			cbStatus.getItems().add("active");
-			cbStatus.getItems().add("inactive");
+			cbStatus.getItems().addAll("active","inactive");
+			cbStatus.setValue("active");
+			
+			cbSearch.getItems().addAll("Supplier ID","Company Name","Representative Name","Representative Contact","Location","Status");
+			cbSearch.setValue("Supplier ID");
 			
 			// Sets the text to a fixed value
 			txtSupplierID.setEditable(false);
@@ -185,9 +190,32 @@ public class AddSuppliersController implements Initializable {
 					
 					// Compare names of data with every filter
 					String lowerCaseFilter = newValue.toLowerCase();
-					
-					if(s.getName().toLowerCase().contains(lowerCaseFilter)) {
-						return true; //Filter matches
+
+					switch(cbSearch.getValue()) {
+					case "Supplier ID": if((s.getSupplierID()+"").contains(lowerCaseFilter)) {
+											return true; //Filter matches
+										}
+											break;
+					case "Company Name": if(s.getName().toLowerCase().contains(lowerCaseFilter)) {
+											return true; //Filter matches
+										}
+											break;
+					case "Representative Name": if(s.getRepName().toLowerCase().contains(lowerCaseFilter)) {
+											return true; //Filter matches
+										}
+											break;
+					case "Representative Contact": if(s.getRepContact().contains(lowerCaseFilter)) {
+											return true; //Filter matches
+										}
+											break;
+					case "Location": if(s.getLocation().toLowerCase().contains(lowerCaseFilter)) {
+											return true; //Filter matches
+										}
+											break;
+					case "Status": if(s.getStatus().toLowerCase().contains(lowerCaseFilter)) {
+											return true; //Filter matches
+										}
+											break;
 					}
 					
 					return false; //Does not match

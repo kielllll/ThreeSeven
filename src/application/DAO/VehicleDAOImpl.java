@@ -118,7 +118,7 @@ public class VehicleDAOImpl implements VehicleDAO {
 			st.setString(5, v.getChassisNumber());
 			st.setInt(6, modelID);
 			st.setInt(7, categoryID);
-			st.setString(8, v.getEmcumberedTo());
+			st.setString(8, v.getEncumberedTo());
 			st.setDouble(9, v.getAmount());
 			st.setString(10, v.getMaturityDate().toString());
 			st.setString(11, v.getStatus());
@@ -169,6 +169,25 @@ public class VehicleDAOImpl implements VehicleDAO {
 		} catch(Exception err) {
 			err.printStackTrace();
 		}
+	}
+	
+	public List<String> getAllEncumberedTo() {
+		// TODO Auto-generated method stub
+		List<String> list = new LinkedList<String>();
+		try {
+			Statement st = Database.getInstance().getDBConn().createStatement();
+			ResultSet rs = st.executeQuery("SELECT DISTINCT v.encumbered_to FROM vehicles v ORDER BY v.encumbered_to ASC");
+			
+			while(rs.next()) {
+				list.add(rs.getString("v.encumbered_to"));
+			}
+			
+			st.close();
+			rs.close();
+		} catch(Exception err) {
+			err.printStackTrace();
+		}
+		return list;
 	}
 	
 	@Override

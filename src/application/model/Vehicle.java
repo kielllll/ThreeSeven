@@ -153,7 +153,7 @@ public class Vehicle {
 		return type;
 	}
 	
-	public String getEmcumberedTo() {
+	public String getEncumberedTo() {
 		return encumberedTo.get();
 	}
 	

@@ -127,40 +127,25 @@ public class UpdateVehiclesController implements Initializable {
 			
 			tblVehicle.setOnMouseReleased(e->{
 				if(Bindings.isNotEmpty(tblVehicle.getItems()).get()) {
-					Vehicle v = tblVehicle.getFocusModel().getFocusedItem();
-					v.setVehicleID(list.stream()
-											.filter(i->i.getMvNumber().equals(v.getMvNumber()))
-											.findFirst()
-											.get()
-											.getVehicleID());	
+					showDetails(tblVehicle.getFocusModel().getFocusedItem());
+				}
+			});
+			
+			tblVehicle.setOnKeyPressed(e->{
+				if(Bindings.isNotEmpty(tblVehicle.getItems()).get()) {
+					String keyCode = e.getCode().toString();
 					
-					v.setImage(list.parallelStream()
-							.filter(i->i.getMvNumber().equals(v.getMvNumber()))
-							.findFirst()
-							.get()
-							.getImage());
-					
-					txtPlateNumber.setText(v.getPlateNumber());
-					txtMVNumber.setText(v.getMvNumber());
-					txtEngineNumber.setText(v.getEngineNumber());
-					txtChassisNumber.setText(v.getChassisNumber());
-					cbModel.setValue(v.getModel());
-					cbType.setValue(v.getType());
-					txtEncumberedTo.setText(v.getEmcumberedTo());
-					txtAmount.setText(v.getAmount()+"");
-					dpMaturity.setValue(v.getMaturityDate());
-					cbStatus.setValue(v.getStatus());
-					imgVehicle.setPreserveRatio(false);
-					imgVehicle.setFitHeight(100);
-					imgVehicle.setFitWidth(200);
-					imgVehicle.setImage(v.getImage());
-					
-					Components.hideError(lblError);
+					switch(keyCode) {
+					 case "UP": showDetails(tblVehicle.getFocusModel().getFocusedItem());
+						 break;
+					 case "DOWN": showDetails(tblVehicle.getFocusModel().getFocusedItem());
+						 break;
+					}
 				}
 			});
 			
 			txtPlateNumber.textProperty().addListener((observable, oldValue, newValue) -> {
-				if(Components.isPlateNumExisting(newValue)) {
+				if(Components.getInstance().isPlateNumExisting(newValue)) {
 					Components.showError(lblError, "Error: Plate number already exists");
 				}
 				else Components.hideError(lblError);
@@ -208,7 +193,7 @@ public class UpdateVehiclesController implements Initializable {
 												.get()
 												.getCategoryID();
 						
-						VehicleDAOImpl.getInstance().update(v.getVehicleID(), v.getPlateNumber(), v.getMvNumber(), v.getEngineNumber(), v.getChassisNumber(), modelID, typeID, v.getEmcumberedTo(), txtAmount.getText(), v.getMaturityDate().toString(), v.getStatus(), filePath);
+						VehicleDAOImpl.getInstance().update(v.getVehicleID(), v.getPlateNumber(), v.getMvNumber(), v.getEngineNumber(), v.getChassisNumber(), modelID, typeID, v.getEncumberedTo(), txtAmount.getText(), v.getMaturityDate().toString(), v.getStatus(), filePath);
 						Sessions.getInstance().audit("Updated a vehicle: "+v.getPlateNumber());
 						clear();
 						initList();
@@ -239,7 +224,7 @@ public class UpdateVehiclesController implements Initializable {
 												.get()
 												.getCategoryID();
 						
-						VehicleDAOImpl.getInstance().update("UPDATE vehicles SET plate_number='"+v.getPlateNumber()+"', mv_number='"+v.getMvNumber()+"', engine_number='"+v.getEngineNumber()+"', chassis_number='"+v.getChassisNumber()+"', model_ID="+modelID+", category_ID="+typeID+", encumbered_to='"+v.getEmcumberedTo()+"', amount="+v.getAmount()+", maturity_date='"+v.getMaturityDate()+"', status='"+v.getStatus()+"' WHERE vehicle_ID="+v.getVehicleID());
+						VehicleDAOImpl.getInstance().update("UPDATE vehicles SET plate_number='"+v.getPlateNumber()+"', mv_number='"+v.getMvNumber()+"', engine_number='"+v.getEngineNumber()+"', chassis_number='"+v.getChassisNumber()+"', model_ID="+modelID+", category_ID="+typeID+", encumbered_to='"+v.getEncumberedTo()+"', amount="+v.getAmount()+", maturity_date='"+v.getMaturityDate()+"', status='"+v.getStatus()+"' WHERE vehicle_ID="+v.getVehicleID());
 						Sessions.getInstance().audit("Updated a vehicle: "+v.getPlateNumber());
 						clear();
 						initList();
@@ -362,7 +347,7 @@ public class UpdateVehiclesController implements Initializable {
 												return true; //Filter matches
 											}
 											break;
-						case "Encumbered To":	if(((s.getEmcumberedTo()+"").toLowerCase()).contains(lowerCaseFilter)) {
+						case "Encumbered To":	if(((s.getEncumberedTo()+"").toLowerCase()).contains(lowerCaseFilter)) {
 												return true; //Filter matches
 											}
 											break;
@@ -416,6 +401,41 @@ public class UpdateVehiclesController implements Initializable {
 		dpMaturity.setValue(null);
 		cbStatus.setValue(null);
 		imgVehicle.setImage(null);
+	}
+	
+	public void showDetails(Vehicle v) {
+		try {
+			v.setVehicleID(list.stream()
+					.filter(i->i.getMvNumber().equals(v.getMvNumber()))
+					.findFirst()
+					.get()
+					.getVehicleID());	
+
+			v.setImage(list.parallelStream()
+				.filter(i->i.getMvNumber().equals(v.getMvNumber()))
+				.findFirst()
+				.get()
+				.getImage());
+			
+			txtPlateNumber.setText(v.getPlateNumber());
+			txtMVNumber.setText(v.getMvNumber());
+			txtEngineNumber.setText(v.getEngineNumber());
+			txtChassisNumber.setText(v.getChassisNumber());
+			cbModel.setValue(v.getModel());
+			cbType.setValue(v.getType());
+			txtEncumberedTo.setText(v.getEncumberedTo());
+			txtAmount.setText(v.getAmount()+"");
+			dpMaturity.setValue(v.getMaturityDate());
+			cbStatus.setValue(v.getStatus());
+			imgVehicle.setPreserveRatio(false);
+			imgVehicle.setFitHeight(130);
+			imgVehicle.setFitWidth(200);
+			imgVehicle.setImage(v.getImage());
+			
+			Components.hideError(lblError);
+		} catch(Exception err) {
+			err.printStackTrace();
+		}
 	}
 	
 	public boolean hasIncompleteFields() {

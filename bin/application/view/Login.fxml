@@ -36,7 +36,7 @@
                   </Label>
                   <JFXTextField fx:id="txtID" labelFloat="true" layoutX="43.0" layoutY="156.0" onAction="#onEnter" prefHeight="25.0" prefWidth="275.0" promptText="User ID" />
                   <JFXPasswordField fx:id="txtPass" labelFloat="true" layoutX="43.0" layoutY="213.0" onAction="#onEnter" prefHeight="25.0" prefWidth="275.0" promptText="Password" />
-                  <JFXButton fx:id="btnSignIn" layoutX="40.0" layoutY="319.0" prefHeight="25.0" prefWidth="275.0" text="Sign in" />
+                  <JFXButton fx:id="btnSignIn" layoutX="40.0" layoutY="319.0" prefHeight="25.0" prefWidth="275.0" text="Sign in [Enter]" />
                   <Label fx:id="lblError" layoutX="115.0" layoutY="270.0" text="Error" textFill="RED" />
                </children>
             </AnchorPane>

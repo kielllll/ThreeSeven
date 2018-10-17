@@ -110,30 +110,20 @@ public class PurchaseOrderController implements Initializable {
 			
 			tblPO.setOnMouseClicked(e->{
 				if(Bindings.isNotEmpty(tblPO.getItems()).get()) {
-					PurchaseOrder p = tblPO.getFocusModel().getFocusedItem();
+					showDetails(tblPO.getFocusModel().getFocusedItem());
+				}
+			});
+			
+			tblPO.setOnKeyPressed(e->{
+				if(Bindings.isNotEmpty(tblPO.getItems()).get()) {
+					String keyCode = e.getCode().toString();
 					
-					disableField(true);
-					
-					txtPOID.setText(p.getPurchaseID()+"");
-					dpPO.setValue(p.getPurchaseDate());
-					cbSupplier.setValue(p.getSupplier());
-					dpNeeded.setValue(p.getDateNeeded());
-					cbStatus.setValue(p.getStatus());
-					
-					if(cbStatus.getValue().equals("delivered"))
-						cbStatus.setDisable(true);
-					else cbStatus.setDisable(false);
-					List<PODetails> listDetails = PODetailsDAOImpl.getInstance()
-																.getAll()
-																.parallelStream()
-																.filter(i->i.getPurchaseID()==p.getPurchaseID())
-																.sorted((o1,o2) -> (o1.getPurchaseID()>o2.getPurchaseID())?1:-1)
-																.collect(Collectors.toList());
-					
-					listPODetails.clear();
-					listDetails.stream()
-							.forEach(i->listPODetails.add(i));
-					updateCost();
+					switch(keyCode) {
+					case "UP": showDetails(tblPO.getFocusModel().getFocusedItem());
+						break;
+					case "DOWN": showDetails(tblPO.getFocusModel().getFocusedItem());
+						break;
+					}
 				}
 			});
 			
@@ -347,6 +337,35 @@ public class PurchaseOrderController implements Initializable {
 				.filter(p->p.getName().equals(name))
 				.findFirst()
 				.isPresent()?true:false;
+	}
+	
+	public void showDetails(PurchaseOrder p) {
+		try {
+			disableField(true);
+			
+			txtPOID.setText(p.getPurchaseID()+"");
+			dpPO.setValue(p.getPurchaseDate());
+			cbSupplier.setValue(p.getSupplier());
+			dpNeeded.setValue(p.getDateNeeded());
+			cbStatus.setValue(p.getStatus());
+			
+			if(cbStatus.getValue().equals("delivered"))
+				cbStatus.setDisable(true);
+			else cbStatus.setDisable(false);
+			List<PODetails> listDetails = PODetailsDAOImpl.getInstance()
+														.getAll()
+														.parallelStream()
+														.filter(i->i.getPurchaseID()==p.getPurchaseID())
+														.sorted((o1,o2) -> (o1.getPurchaseID()>o2.getPurchaseID())?1:-1)
+														.collect(Collectors.toList());
+			
+			listPODetails.clear();
+			listDetails.stream()
+					.forEach(i->listPODetails.add(i));
+			updateCost();
+		} catch(Exception err) {
+			err.printStackTrace();
+		}
 	}
 	
 	public String getSupplier() {

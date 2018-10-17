@@ -28,8 +28,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 
 public class AddItemsController implements Initializable {
+	@FXML
+	private AnchorPane panel;
 	@FXML
 	private JFXTextField txtItemID;
 	@FXML
@@ -180,8 +183,8 @@ public class AddItemsController implements Initializable {
 			List<Item> sortedList = ItemDAOImpl.getInstance()
 											.getAll()
 											.parallelStream()
-//											.sorted((o1, o2) -> (o1.getItemID()+"").compareTo(o2.getItemID()+""))
-											.sorted((o1, o2) -> (o1.getItemID()>o2.getItemID())?1:-1)
+											.sorted((o1, o2) -> (o1.getSupplier()+"").compareTo(o2.getSupplier()+""))
+//											.sorted((o1, o2) -> (o1.getItemID()>o2.getItemID())?1:-1)
 											.collect(Collectors.toList());
 			
 			// Adds the sorted data to the list

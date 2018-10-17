@@ -99,39 +99,20 @@ public class StockAdjustmentController implements Initializable {
 			
 			tblStockAdjustment.setOnMouseClicked(e->{
 				if(Bindings.isNotEmpty(tblStockAdjustment.getItems()).get()) {
-					StockAdjustment s = tblStockAdjustment.getFocusModel().getFocusedItem();
+					showDetails(tblStockAdjustment.getFocusModel().getFocusedItem());
+				}
+			});
+			
+			tblStockAdjustment.setOnKeyPressed(e->{
+				if(Bindings.isNotEmpty(tblStockAdjustment.getItems()).get()) {
+					String keyCode = e.getCode().toString();
 					
-					disableField(true);
-					
-					txtStockAdjID.setText(s.getStockAdjID()+"");
-					dpDate.setValue(s.getDate());
-					txtRemarks.setText(s.getRemarks());
-					cbStatus.setValue(s.getStatus());
-					
-					if(cbStatus.getValue().equals("pending"))
-						cbStatus.setDisable(false);
-					else cbStatus.setDisable(true);
-					
-					List<StockAdjustmentDetails> listDetails = StockAdjustmentDetailsDAOImpl.getInstance()
-																					.getAll()
-																					.stream()
-																					.filter(i-> i.getStockAdjID()==s.getStockAdjID())
-																					.sorted((o1,o2) -> (o1.getStockAdjID()>o2.getStockAdjID())?1:-1)
-																					.collect(Collectors.toList());
-					
-					tblDetails.getItems().clear();
-					listDetails.stream()
-							.forEach(i->{
-								i.setStockAdjID(ItemDAOImpl.getInstance()
-														.getAll()
-														.stream()
-														.filter(item -> item.getName().equals(i.getName()))
-														.findFirst()
-														.get()
-														.getItemID());
-								
-								tblDetails.getItems().add(i);
-							});
+					switch(keyCode) {
+					case "UP": showDetails(tblStockAdjustment.getFocusModel().getFocusedItem());
+						break;
+					case "DOWN": showDetails(tblStockAdjustment.getFocusModel().getFocusedItem());
+						break;
+					}
 				}
 			});
 			
@@ -318,6 +299,44 @@ public class StockAdjustmentController implements Initializable {
 
 	        // 5. Add sorted (and filtered) data to the table.
 	        tblStockAdjustment.setItems(sortedData);
+		} catch(Exception err) {
+			err.printStackTrace();
+		}
+	}
+	
+	public void showDetails(StockAdjustment s) {
+		try {
+			disableField(true);
+			
+			txtStockAdjID.setText(s.getStockAdjID()+"");
+			dpDate.setValue(s.getDate());
+			txtRemarks.setText(s.getRemarks());
+			cbStatus.setValue(s.getStatus());
+			
+			if(cbStatus.getValue().equals("pending"))
+				cbStatus.setDisable(false);
+			else cbStatus.setDisable(true);
+			
+			List<StockAdjustmentDetails> listDetails = StockAdjustmentDetailsDAOImpl.getInstance()
+																			.getAll()
+																			.stream()
+																			.filter(i-> i.getStockAdjID()==s.getStockAdjID())
+																			.sorted((o1,o2) -> (o1.getStockAdjID()>o2.getStockAdjID())?1:-1)
+																			.collect(Collectors.toList());
+			
+			tblDetails.getItems().clear();
+			listDetails.stream()
+					.forEach(i->{
+						i.setStockAdjID(ItemDAOImpl.getInstance()
+												.getAll()
+												.stream()
+												.filter(item -> item.getName().equals(i.getName()))
+												.findFirst()
+												.get()
+												.getItemID());
+						
+						tblDetails.getItems().add(i);
+					});
 		} catch(Exception err) {
 			err.printStackTrace();
 		}

@@ -74,12 +74,20 @@ public class UpdatePreventiveMaintenanceController implements Initializable {
 			
 			tblPM.setOnMouseClicked(e->{
 				if(Bindings.isNotEmpty(tblPM.getItems()).get()) {
-					PreventiveMaintenance pm = tblPM.getFocusModel().getFocusedItem();
+					showDetails(tblPM.getFocusModel().getFocusedItem());
+				}
+			});
+			
+			tblPM.setOnKeyPressed(e->{
+				if(Bindings.isNotEmpty(tblPM.getItems()).get()) {
+					String keyCode = e.getCode().toString();
 					
-					txtPMID.setText(pm.getPmID()+"");
-					cbPlateNumber.setValue(pm.getPlateNumber());
-					txtDescription.setText(pm.getDescription());
-					dpDate.setValue(pm.getDate());
+					switch(keyCode) {
+					case "UP": showDetails(tblPM.getFocusModel().getFocusedItem());
+						break;
+					case "DOWN": showDetails(tblPM.getFocusModel().getFocusedItem());
+						break;
+					}
 				}
 			});
 			
@@ -184,6 +192,17 @@ public class UpdatePreventiveMaintenanceController implements Initializable {
 			
 			// 5. Add sorted (and filtered) data to the table.
 			tblPM.setItems(sortedData);
+		} catch(Exception err) {
+			err.printStackTrace();
+		}
+	}
+	
+	public void showDetails(PreventiveMaintenance pm) {
+		try {
+			txtPMID.setText(pm.getPmID()+"");
+			cbPlateNumber.setValue(pm.getPlateNumber());
+			txtDescription.setText(pm.getDescription());
+			dpDate.setValue(pm.getDate());
 		} catch(Exception err) {
 			err.printStackTrace();
 		}

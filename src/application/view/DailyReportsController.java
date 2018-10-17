@@ -63,6 +63,7 @@ public class DailyReportsController implements Initializable {
 			Components.hideError(lblError);
 			initTable();
 			cbSearch.getItems().addAll("Stock in ID","Transaction Date","Supplier","Invoice Number","Invoice Date","Amount");
+			cbSearch.setValue("Stock in ID");
 			txtTotal.setEditable(false);
 			txtTotal.setText(getTotal()+"");
 			

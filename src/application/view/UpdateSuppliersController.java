@@ -51,6 +51,8 @@ public class UpdateSuppliersController implements Initializable {
 	@FXML
 	private JFXButton btnRefresh;
 	@FXML
+	private JFXComboBox<String> cbSearch;
+	@FXML
 	private JFXTextField txtSearch;
 	@FXML
 	private TableView<Supplier> tblSupplier;
@@ -79,9 +81,12 @@ public class UpdateSuppliersController implements Initializable {
 			Components.hideError(lblError);
 			
 			// Sets fixed value on the combo box
-			cbStatus.getItems().add("active");
-			cbStatus.getItems().add("inactive");
+			cbStatus.getItems().addAll("active","inactive");
+			cbStatus.setValue("active");
 			
+			cbSearch.getItems().addAll("Supplier ID","Company Name","Representative Name","Representative Contact","Location","Status");
+			cbSearch.setValue("Supplier ID");
+					
 			// Sets the text to a fixed value
 			txtSupplierID.setEditable(false);
 			
@@ -113,14 +118,20 @@ public class UpdateSuppliersController implements Initializable {
 			
 			tblSupplier.setOnMouseClicked(e-> {
 				if(Bindings.isNotEmpty(tblSupplier.getItems()).get()) {
-					Supplier s = tblSupplier.getFocusModel().getFocusedItem();
+					showDetails(tblSupplier.getFocusModel().getFocusedItem());
+				}
+			});
+			
+			tblSupplier.setOnKeyPressed(e->{
+				if(Bindings.isNotEmpty(tblSupplier.getItems()).get()) {
+					String keyCode = e.getCode().toString();
 					
-					txtSupplierID.setText(s.getSupplierID()+"");
-					txtName.setText(s.getName());
-					txtRepName.setText(s.getRepName());
-					txtRepContact.setText(s.getRepContact());
-					txtLocation.setText(s.getLocation());
-					cbStatus.setValue(s.getStatus());
+					switch(keyCode) {
+					case "UP": showDetails(tblSupplier.getFocusModel().getFocusedItem());
+						break;
+					case "DOWN": showDetails(tblSupplier.getFocusModel().getFocusedItem());
+						break;
+					}
 				}
 			});
 			
@@ -209,8 +220,31 @@ public class UpdateSuppliersController implements Initializable {
 					// Compare names of data with every filter
 					String lowerCaseFilter = newValue.toLowerCase();
 					
-					if(s.getName().toLowerCase().contains(lowerCaseFilter)) {
-						return true; //Filter matches
+					switch(cbSearch.getValue()) {
+					case "Supplier ID": if((s.getSupplierID()+"").contains(lowerCaseFilter)) {
+											return true; //Filter matches
+										}
+											break;
+					case "Company Name": if(s.getName().toLowerCase().contains(lowerCaseFilter)) {
+											return true; //Filter matches
+										}
+											break;
+					case "Representative Name": if(s.getRepName().toLowerCase().contains(lowerCaseFilter)) {
+											return true; //Filter matches
+										}
+											break;
+					case "Representative Contact": if(s.getRepContact().contains(lowerCaseFilter)) {
+											return true; //Filter matches
+										}
+											break;
+					case "Location": if(s.getLocation().toLowerCase().contains(lowerCaseFilter)) {
+											return true; //Filter matches
+										}
+											break;
+					case "Status": if(s.getStatus().toLowerCase().contains(lowerCaseFilter)) {
+											return true; //Filter matches
+										}
+											break;
 					}
 					
 					return false; //Does not match
@@ -227,6 +261,19 @@ public class UpdateSuppliersController implements Initializable {
 			tblSupplier.setItems(sortedData);
 		} catch(Exception err) {
 			
+		}
+	}
+	
+	public void showDetails(Supplier s) {
+		try {
+			txtSupplierID.setText(s.getSupplierID()+"");
+			txtName.setText(s.getName());
+			txtRepName.setText(s.getRepName());
+			txtRepContact.setText(s.getRepContact());
+			txtLocation.setText(s.getLocation());
+			cbStatus.setValue(s.getStatus());
+		} catch(Exception err) {
+			err.printStackTrace();
 		}
 	}
 	

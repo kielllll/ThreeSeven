@@ -2,12 +2,15 @@ package application.util;
 
 import java.awt.image.BufferedImage;
 import java.nio.file.Paths;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
 import application.DAO.ItemDAOImpl;
 import application.DAO.StockDAOImpl;
 import application.DAO.VehicleDAOImpl;
+import application.model.Vehicle;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
@@ -18,6 +21,15 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 
 public class Components {
+	
+	private static Components instance = new Components();
+	
+	private List<Vehicle> listVehicle = new LinkedList<Vehicle>();
+	
+	public Components() {
+		listVehicle = VehicleDAOImpl.getInstance()
+						.getAll();
+	}
 	
 	public static void switchScreen(int node, ObservableList<Node> children) {
 		for(Node n : children) {
@@ -76,10 +88,8 @@ public class Components {
 				.isPresent();
 	}
 	
-	public static boolean isPlateNumExisting(String plateNumber) {
-		return VehicleDAOImpl.getInstance()
-				.getAll()
-				.stream()
+	public boolean isPlateNumExisting(String plateNumber) {
+		return listVehicle.stream()
 				.filter(i->i.getPlateNumber().equalsIgnoreCase(plateNumber))
 				.findFirst()
 				.isPresent();
@@ -113,5 +123,9 @@ public class Components {
 			err.printStackTrace();
 		}
 		return SwingFXUtils.toFXImage(bf, null);
+	}
+	
+	public static Components getInstance() {
+		return instance;
 	}
 }

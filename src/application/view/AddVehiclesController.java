@@ -137,20 +137,11 @@ public class AddVehiclesController implements Initializable {
 			});
 			
 			txtPlateNumber.textProperty().addListener((observable, oldValue, newValue) -> {
-				if(Components.isPlateNumExisting(newValue)) {
+				if(Components.getInstance().isPlateNumExisting(newValue)) {
 					Components.showError(lblError, "Error: Plate number already exists");
 				}
 				else Components.hideError(lblError);
 			});
-			
-//			txtPlateNumber.focusedProperty().addListener((observable, oldValue, newValue) -> {
-//				if(newValue) {
-//					if(Components.isPlateNumExisting(txtPlateNumber.getText())) {
-//						Components.showError(lblError, "Error: Plate number already exists");
-//					}
-//					else Components.hideError(lblError);
-//				}
-//			});
 			
 			txtAmount.textProperty().addListener((observable, oldValue, newValue) -> {
 				if(!newValue.matches("\\d*(\\.\\d{0,2})?"))
@@ -281,7 +272,7 @@ public class AddVehiclesController implements Initializable {
 												return true; //Filter matches
 											}
 											break;
-						case "Encumbered To":	if(((s.getEmcumberedTo()+"").toLowerCase()).contains(lowerCaseFilter)) {
+						case "Encumbered To":	if(((s.getEncumberedTo()+"").toLowerCase()).contains(lowerCaseFilter)) {
 												return true; //Filter matches
 											}
 											break;
@@ -315,7 +306,7 @@ public class AddVehiclesController implements Initializable {
 				BufferedImage bf = ImageIO.read(filePath);
 				Image img = SwingFXUtils.toFXImage(bf, null);
 				imgVehicle.setPreserveRatio(false);
-				imgVehicle.setFitHeight(100);
+				imgVehicle.setFitHeight(130);
 				imgVehicle.setFitWidth(200);
 				imgVehicle.setImage(img);
 			}

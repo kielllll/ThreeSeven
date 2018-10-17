@@ -22,7 +22,9 @@
    <center>
       <AnchorPane prefHeight="188.0" prefWidth="400.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXComboBox fx:id="cbSelect" labelFloat="true" layoutX="112.0" layoutY="54.0" prefHeight="25.0" prefWidth="175.0" promptText="Generate" />
+            <JFXComboBox fx:id="cbSelect" labelFloat="true" layoutX="112.0" layoutY="14.0" prefHeight="25.0" prefWidth="175.0" promptText="Status" />
+            <JFXComboBox fx:id="cbType" labelFloat="true" layoutX="112.0" layoutY="54.0" prefHeight="25.0" prefWidth="175.0" promptText="Type" />
+            <JFXComboBox fx:id="cbEncumberedTo" labelFloat="true" layoutX="112.0" layoutY="93.0" prefHeight="25.0" prefWidth="175.0" promptText="Encumbered To" />
          </children>
       </AnchorPane>
    </center>
